@@ -111,6 +111,7 @@ public class StopwatchPlugin : GLib.Object {
 		};
 
 		timerButton = new TimerButton ();
+		panel_plugin.add_action_widget (timerButton);
 		box.add (timerButton);
 
 		var resetButton = new Gtk.Button ();
@@ -127,6 +128,7 @@ public class StopwatchPlugin : GLib.Object {
 		resetButton.clicked += (s) => {
 			timerButton.reset ();
 		};
+		panel_plugin.add_action_widget (resetButton);
 		box.add (resetButton);
 
 		panel_plugin.add (box);
