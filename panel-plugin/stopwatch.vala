@@ -27,31 +27,58 @@
 
 private class TimerButton : Gtk.ToggleButton {
 
-	private int _secondsElapsed;
+	private time_t committed;
 
-	private int secondsElapsed {
-		get {
-			return this._secondsElapsed;
-		}
-		set {
-			this._secondsElapsed = value;
+	private uint tickId;
+	private time_t started;
 
-			var seconds = value % 60;
-			var minutes = (value / 60) % 60;
-			var hours   = (value / 60) / 60;
+	private void updateDisplay (time_t elapsed) {
+		var seconds = elapsed % 60;
+		var minutes = (elapsed / 60) % 60;
+		var hours   = (elapsed / 60) / 60;
 
-			this.set_label ("%02d:%02d:%02d".printf (hours,
-								 minutes,
-								 seconds));
-		}
+		this.set_label ("%02d:%02d:%02d".printf ((int) hours,
+							 (int) minutes,
+							 (int) seconds));
 	}
 
 	public TimerButton () {
-		this.secondsElapsed = 3;
+		this.committed = 3;
+		this.started = -1;
+		this.start ();
+	}
+
+	private bool tick () {
+		if (this.started == -1)
+			return false;
+
+		this.updateDisplay (this.committed + (time_t () - this.started));
+		return true;
+	}
+
+	public void start () {
+		this.started = time_t ();
+		this.tickId = GLib.Timeout.add_seconds (1, tick);
+	}
+
+	public void stop () {
+		if (this.tickId > 0) {
+			GLib.Source.remove (this.tickId);
+			this.tickId = 0;
+		}
+
+		if (this.started != -1) {
+			this.committed += (time_t () - this.started);
+			this.started = -1;
+		}
+
+		this.updateDisplay (this.committed);
 	}
 
 	public void reset () {
-		this.secondsElapsed = 0;
+		this.stop ();
+		this.committed = 0;
+		this.updateDisplay ((time_t) 0);
 	}
 }
 
