@@ -100,9 +100,15 @@ private class TimerButton : Gtk.ToggleButton {
 
 public class StopwatchPlugin : GLib.Object {
 	private TimerButton timerButton;
+	private Xfce.HVBox box;
 	public StopwatchPlugin (Xfce.PanelPlugin panel_plugin) {
 
-		var box = new Gtk.HBox (false, 0);
+		var orientation = panel_plugin.get_orientation ();
+
+		box = new Xfce.HVBox (orientation, false, 0);
+		panel_plugin.orientation_changed += (s, orientation) => {
+			box.set_orientation (orientation);
+		};
 
 		timerButton = new TimerButton ();
 		box.add (timerButton);
