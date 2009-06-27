@@ -43,9 +43,14 @@ private class TimerButton : Gtk.ToggleButton {
 	}
 
 	public TimerButton () {
-		this.committed = 3;
-		this.started = -1;
-		this.start ();
+		this.reset ();
+
+		this.toggled += (s) => {
+			if (this.active)
+				this.start ();
+			else
+				this.stop ();
+		};
 	}
 
 	private bool tick () {
@@ -57,11 +62,15 @@ private class TimerButton : Gtk.ToggleButton {
 	}
 
 	public void start () {
+		this.active = true;
+
 		this.started = time_t ();
 		this.tickId = GLib.Timeout.add_seconds (1, tick);
 	}
 
 	public void stop () {
+		this.active = false;
+
 		if (this.tickId > 0) {
 			GLib.Source.remove (this.tickId);
 			this.tickId = 0;
