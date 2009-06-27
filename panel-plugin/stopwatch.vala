@@ -26,17 +26,21 @@
  */
 
 public class StopwatchPlugin : GLib.Object {
+	private Gtk.ToggleButton timerButton;
 	public StopwatchPlugin (Xfce.PanelPlugin panel_plugin) {
 
 		var box = new Gtk.HBox (false, 0);
 
-		var timerButton = new Gtk.ToggleButton.with_label ("00:00:00");
+		timerButton = new Gtk.ToggleButton.with_label ("00:00:03");
 		box.add (timerButton);
 
 		var resetButton = new Gtk.Button ();
 		var refreshImage = new Gtk.Image.from_stock (Gtk.STOCK_REFRESH,
 		                                             Gtk.IconSize.BUTTON);
 		resetButton.set_image (refreshImage);
+		resetButton.clicked += (s) => {
+			timerButton.set_label ("00:00:00");
+		};
 		box.add (resetButton);
 
 		panel_plugin.add (box);
