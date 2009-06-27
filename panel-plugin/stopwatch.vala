@@ -43,6 +43,13 @@ private class TimerButton : Gtk.ToggleButton {
 	}
 
 	public TimerButton () {
+
+		/* style like xfce_create_panel_toggle_button */
+		this.can_default = false;
+		this.can_focus = false;
+		this.focus_on_click = false;
+		this.set_relief (Gtk.ReliefStyle.NONE);
+
 		this.reset ();
 
 		this.toggled += (s) => {
@@ -101,6 +108,13 @@ public class StopwatchPlugin : GLib.Object {
 		box.add (timerButton);
 
 		var resetButton = new Gtk.Button ();
+
+		/* style like xfce_create_panel_button */
+		resetButton.can_default = false;
+		resetButton.can_focus = false;
+		resetButton.focus_on_click = false;
+		resetButton.set_relief (Gtk.ReliefStyle.NONE);
+
 		var refreshImage = new Gtk.Image.from_stock (Gtk.STOCK_REFRESH,
 		                                             Gtk.IconSize.BUTTON);
 		resetButton.set_image (refreshImage);
