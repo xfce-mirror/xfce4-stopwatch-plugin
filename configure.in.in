@@ -1,0 +1,75 @@
+dnl xfce4-stopwatch-plugin
+dnl 2009 Diego Ongaro <ongardie@gmail.com>
+
+dnl This file (configure.in.in) is based on that of the
+dnl xfce4-places-plugin and the xfce4-notes-plugin.
+
+dnl The xfce4-notes-plugin configure.in.in header is reproduced here:
+dnl
+dnl xfce4-notes-plugin - Notes plugin for the Xfce4 panel
+dnl
+dnl 2003 Benedikt Meurer <benedikt.meurer@unix-ag.uni-siegen.de>
+dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
+dnl 2006, 2008, 2009 Mike Massonnet <mmassonnet@gmail.com>
+
+dnl version info
+m4_define([stopwatch_version], [0.1.0])
+
+dnl initialize autoconf
+AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>])
+AC_INIT([xfce4-stopwatch-plugin], [stopwatch_version], [ongardie@gmail.com])
+AC_PREREQ([2.50])
+
+dnl AC_CANONICAL_TARGET()
+
+dnl initialize automake
+AM_INIT_AUTOMAKE([1.8 dist-bzip2])
+AM_CONFIG_HEADER([config.h])
+AM_MAINTAINER_MODE()
+
+dnl check for basic programs
+AC_PROG_CC_C_O()
+AC_PROG_LD()
+AC_PROG_INSTALL()
+AC_PROG_LIBTOOL()
+AC_PROG_INTLTOOL()
+
+dnl check for required packages
+XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.10.0])
+XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.6.0])
+XDT_CHECK_PACKAGE([LIBXFCEGUI4], [libxfcegui4-1.0], [4.6.0])
+XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.6.0])
+
+dnl Check for valac
+valac_minimum_version=0.7.1
+AC_PATH_PROG([VALAC], [valac], [valac])
+AC_SUBST(VALAC)
+if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
+	XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1])
+fi
+
+dnl check for i18n support
+XDT_I18N([@LINGUAS@])
+
+dnl Check for debugging support
+XDT_FEATURE_DEBUG()
+
+AC_OUTPUT([
+Makefile
+panel-plugin/Makefile
+po/Makefile.in
+])
+
+dnl print configuration
+echo
+echo "Build Configuration:"
+echo
+echo "* Maintainer Mode:        $USE_MAINTAINER_MODE"
+if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
+echo "    * Vala:               $has_valac"
+echo "      You need Vala $valac_minimum_version or higher (run $VALAC --version)"
+echo
+fi
+echo "* Debug Support:          $enable_debug"
+echo
+

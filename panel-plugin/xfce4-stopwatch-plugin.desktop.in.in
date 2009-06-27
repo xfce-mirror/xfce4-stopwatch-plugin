@@ -1,0 +1,8 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+Encoding=UTF-8
+_Name=Stopwatch
+_Comment=Time yourself
+Icon=xfce4-stopwatch-plugin
+X-XFCE-Exec=@EXTERNAL_PLUGIN_PATH@/xfce4-stopwatch-plugin
+X-XFCE-Unique=false
