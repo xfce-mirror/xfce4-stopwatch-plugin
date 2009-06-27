@@ -25,13 +25,43 @@
  * SUCH DAMAGE.
  */
 
+private class TimerButton : Gtk.ToggleButton {
+
+	private int _secondsElapsed;
+
+	private int secondsElapsed {
+		get {
+			return this._secondsElapsed;
+		}
+		set {
+			this._secondsElapsed = value;
+
+			var seconds = value % 60;
+			var minutes = (value / 60) % 60;
+			var hours   = (value / 60) / 60;
+
+			this.set_label ("%02d:%02d:%02d".printf (hours,
+								 minutes,
+								 seconds));
+		}
+	}
+
+	public TimerButton () {
+		this.secondsElapsed = 3;
+	}
+
+	public void reset () {
+		this.secondsElapsed = 0;
+	}
+}
+
 public class StopwatchPlugin : GLib.Object {
-	private Gtk.ToggleButton timerButton;
+	private TimerButton timerButton;
 	public StopwatchPlugin (Xfce.PanelPlugin panel_plugin) {
 
 		var box = new Gtk.HBox (false, 0);
 
-		timerButton = new Gtk.ToggleButton.with_label ("00:00:03");
+		timerButton = new TimerButton ();
 		box.add (timerButton);
 
 		var resetButton = new Gtk.Button ();
@@ -39,7 +69,7 @@ public class StopwatchPlugin : GLib.Object {
 		                                             Gtk.IconSize.BUTTON);
 		resetButton.set_image (refreshImage);
 		resetButton.clicked += (s) => {
-			timerButton.set_label ("00:00:00");
+			timerButton.reset ();
 		};
 		box.add (resetButton);
 
