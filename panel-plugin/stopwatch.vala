@@ -187,9 +187,25 @@ public class StopwatchPlugin : GLib.Object {
 	private TimerButton timerButton;
 	private Xfce.HVBox box;
 
+	private void save (Xfce.PanelPlugin panel_plugin) {
+		var rc = new Xfce.Rc (panel_plugin.save_location (true), false);
+		var elapsed = timer.elapsed;
+		rc.write_entry ("elapsed_sec",  "%ld".printf (elapsed.tv_sec));
+		rc.write_entry ("elapsed_usec", "%ld".printf (elapsed.tv_usec));
+	}
+
+	private void load (Xfce.PanelPlugin panel_plugin) {
+		var rc = new Xfce.Rc (panel_plugin.lookup_rc_file (), true);
+		var elapsed = MyTimeVal.zero ();
+		rc.read_entry ("elapsed_sec",  "0").scanf ("%ld", out elapsed.tv_sec);
+		rc.read_entry ("elapsed_usec", "0").scanf ("%ld", out elapsed.tv_usec);
+		timer.elapsed = elapsed;
+	}
+
 	public StopwatchPlugin (Xfce.PanelPlugin panel_plugin) {
 
 		this.timer = new Timer ();
+		this.load (panel_plugin);
 
 		var orientation = panel_plugin.get_orientation ();
 
@@ -225,6 +241,8 @@ public class StopwatchPlugin : GLib.Object {
 		panel_plugin.size_changed += (p, size) => {
 			return true;
 		};
+
+		panel_plugin.save += this.save;
 	}
 
 
