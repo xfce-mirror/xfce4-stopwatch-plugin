@@ -79,6 +79,11 @@ private class Timer : GLib.Object {
 				                      MyTimeVal.sub (MyTimeVal.now (),
 				                                     this.started));
 		}
+		set {
+			this.stop ();
+			this.committed = value;
+			this.changed ();
+		}
 	}
 
 	public signal void changed ();
@@ -117,9 +122,7 @@ private class Timer : GLib.Object {
 	}
 
 	public void reset () {
-		this.stop ();
-		this.committed = MyTimeVal.zero ();
-		this.changed ();
+		this.elapsed = MyTimeVal.zero ();
 	}
 
 }
@@ -179,9 +182,14 @@ private class TimerButton : Gtk.ToggleButton {
 }
 
 public class StopwatchPlugin : GLib.Object {
+
+	private Timer timer;
 	private TimerButton timerButton;
 	private Xfce.HVBox box;
+
 	public StopwatchPlugin (Xfce.PanelPlugin panel_plugin) {
+
+		this.timer = new Timer ();
 
 		var orientation = panel_plugin.get_orientation ();
 
@@ -190,7 +198,7 @@ public class StopwatchPlugin : GLib.Object {
 			box.set_orientation (orientation);
 		};
 
-		timerButton = new TimerButton (new Timer ());
+		timerButton = new TimerButton (timer);
 		panel_plugin.add_action_widget (timerButton);
 		box.add (timerButton);
 
