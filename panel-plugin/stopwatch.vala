@@ -64,8 +64,7 @@ private struct MyTimeVal {
 
 }
 
-private class TimerButton : Gtk.ToggleButton {
-
+private class Timer : GLib.Object {
 	private MyTimeVal committed;
 
 	private uint tickId;
@@ -82,52 +81,26 @@ private class TimerButton : Gtk.ToggleButton {
 		}
 	}
 
-	private void updateDisplay (MyTimeVal elapsed) {
-		var seconds = (int) (elapsed.tv_sec % 60);
-		var minutes = (int) ((elapsed.tv_sec / 60) % 60);
-		var hours   = (int) ((elapsed.tv_sec / 60) / 60);
+	public signal void changed ();
 
-		this.set_label ("%02d:%02d:%02d".printf (hours,
-		                                         minutes,
-		                                         seconds));
-	}
-
-	public TimerButton () {
-
-		/* style like xfce_create_panel_toggle_button */
-		this.can_default = false;
-		this.can_focus = false;
-		this.focus_on_click = false;
-		this.set_relief (Gtk.ReliefStyle.NONE);
-
+	public Timer () {
 		this.reset ();
-
-		this.toggled += (s) => {
-			if (this.active)
-				this.start ();
-			else
-				this.stop ();
-		};
 	}
 
 	private bool tick () {
 		if (this.started == null)
 			return false;
 
-		this.updateDisplay (this.elapsed);
+		this.changed ();
 		return true;
 	}
 
 	public void start () {
-		this.active = true;
-
 		this.started = MyTimeVal.now ();
 		this.tickId = GLib.Timeout.add_seconds (1, tick);
 	}
 
 	public void stop () {
-		this.active = false;
-
 		if (this.tickId > 0) {
 			GLib.Source.remove (this.tickId);
 			this.tickId = 0;
@@ -140,13 +113,68 @@ private class TimerButton : Gtk.ToggleButton {
 			this.started = null;
 		}
 
-		this.updateDisplay (this.elapsed);
+		this.changed ();
 	}
 
 	public void reset () {
 		this.stop ();
 		this.committed = MyTimeVal.zero ();
-		this.updateDisplay (this.elapsed);
+		this.changed ();
+	}
+
+}
+
+
+private class TimerButton : Gtk.ToggleButton {
+
+	private Timer timer;
+
+	private void updateDisplay (MyTimeVal elapsed) {
+		var seconds = (int) (elapsed.tv_sec % 60);
+		var minutes = (int) ((elapsed.tv_sec / 60) % 60);
+		var hours   = (int) ((elapsed.tv_sec / 60) / 60);
+
+		this.set_label ("%02d:%02d:%02d".printf (hours,
+		                                         minutes,
+		                                         seconds));
+	}
+
+	public TimerButton (Timer timer) {
+		this.timer = timer;
+
+		/* style like xfce_create_panel_toggle_button */
+		this.can_default = false;
+		this.can_focus = false;
+		this.focus_on_click = false;
+		this.set_relief (Gtk.ReliefStyle.NONE);
+
+		this.updateDisplay (this.timer.elapsed);
+
+		this.toggled += (s) => {
+			if (this.active)
+				this.start ();
+			else
+				this.stop ();
+		};
+
+		this.timer.changed += (s) => {
+			this.updateDisplay (this.timer.elapsed);
+		};
+	}
+
+	public void start () {
+		this.active = true;
+		this.timer.start ();
+	}
+
+	public void stop () {
+		this.active = false;
+		this.timer.stop ();
+	}
+
+	public void reset () {
+		this.active = false;
+		this.timer.reset ();
 	}
 }
 
@@ -162,7 +190,7 @@ public class StopwatchPlugin : GLib.Object {
 			box.set_orientation (orientation);
 		};
 
-		timerButton = new TimerButton ();
+		timerButton = new TimerButton (new Timer ());
 		panel_plugin.add_action_widget (timerButton);
 		box.add (timerButton);
 
