@@ -25,21 +25,71 @@
  * SUCH DAMAGE.
  */
 
+private struct MyTimeVal {
+	public long tv_sec;
+	public long tv_usec;
+
+	public MyTimeVal.now () {
+		var source = GLib.TimeVal ();
+		this.tv_sec  = source.tv_sec;
+		this.tv_usec = source.tv_usec;
+	}
+
+	public MyTimeVal.zero () {
+		this.tv_sec = 0;
+		this.tv_usec = 0;
+	}
+
+	public MyTimeVal.add (MyTimeVal a, MyTimeVal b) {
+		if (b.tv_usec + a.tv_usec > 1000000) { /* carry */
+			this.tv_usec = a.tv_usec + b.tv_usec - 1000000;
+			this.tv_sec = a.tv_sec + b.tv_sec + 1;
+		}
+		else {
+			this.tv_usec = a.tv_usec + b.tv_usec;
+			this.tv_sec = a.tv_sec + b.tv_sec;
+		}
+	}
+
+	public MyTimeVal.sub (MyTimeVal a, MyTimeVal b) {
+		if (b.tv_usec > a.tv_usec) { /* borrow */
+			this.tv_usec = (a.tv_usec + 1000000) - b.tv_usec;
+			this.tv_sec = (a.tv_sec - 1) - b.tv_sec;
+		}
+		else {
+			this.tv_usec = a.tv_usec - b.tv_usec;
+			this.tv_sec = a.tv_sec - b.tv_sec;
+		}
+	}
+
+}
+
 private class TimerButton : Gtk.ToggleButton {
 
-	private time_t committed;
+	private MyTimeVal committed;
 
 	private uint tickId;
-	private time_t started;
+	private MyTimeVal? started;
 
-	private void updateDisplay (time_t elapsed) {
-		var seconds = elapsed % 60;
-		var minutes = (elapsed / 60) % 60;
-		var hours   = (elapsed / 60) / 60;
+	public MyTimeVal elapsed {
+		get {
+			if (this.started == null)
+				return this.committed;
+			else
+				return MyTimeVal.add (this.committed,
+				                      MyTimeVal.sub (MyTimeVal.now (),
+				                                     this.started));
+		}
+	}
 
-		this.set_label ("%02d:%02d:%02d".printf ((int) hours,
-							 (int) minutes,
-							 (int) seconds));
+	private void updateDisplay (MyTimeVal elapsed) {
+		var seconds = (int) (elapsed.tv_sec % 60);
+		var minutes = (int) ((elapsed.tv_sec / 60) % 60);
+		var hours   = (int) ((elapsed.tv_sec / 60) / 60);
+
+		this.set_label ("%02d:%02d:%02d".printf (hours,
+		                                         minutes,
+		                                         seconds));
 	}
 
 	public TimerButton () {
@@ -61,17 +111,17 @@ private class TimerButton : Gtk.ToggleButton {
 	}
 
 	private bool tick () {
-		if (this.started == -1)
+		if (this.started == null)
 			return false;
 
-		this.updateDisplay (this.committed + (time_t () - this.started));
+		this.updateDisplay (this.elapsed);
 		return true;
 	}
 
 	public void start () {
 		this.active = true;
 
-		this.started = time_t ();
+		this.started = MyTimeVal.now ();
 		this.tickId = GLib.Timeout.add_seconds (1, tick);
 	}
 
@@ -83,18 +133,20 @@ private class TimerButton : Gtk.ToggleButton {
 			this.tickId = 0;
 		}
 
-		if (this.started != -1) {
-			this.committed += (time_t () - this.started);
-			this.started = -1;
+		if (this.started != null) {
+			this.committed = MyTimeVal.add (this.committed,
+			                                MyTimeVal.sub (MyTimeVal.now (),
+			                                               this.started));
+			this.started = null;
 		}
 
-		this.updateDisplay (this.committed);
+		this.updateDisplay (this.elapsed);
 	}
 
 	public void reset () {
 		this.stop ();
-		this.committed = 0;
-		this.updateDisplay ((time_t) 0);
+		this.committed = MyTimeVal.zero ();
+		this.updateDisplay (this.elapsed);
 	}
 }
 
