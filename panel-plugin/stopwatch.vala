@@ -79,6 +79,11 @@ private class Timer : GLib.Object {
 				                      MyTimeVal.sub (MyTimeVal.now (),
 				                                     this.started));
 		}
+		set {
+			this.stop ();
+			this.committed = value;
+			this.changed ();
+		}
 	}
 
 	public signal void changed ();
@@ -117,9 +122,7 @@ private class Timer : GLib.Object {
 	}
 
 	public void reset () {
-		this.stop ();
-		this.committed = MyTimeVal.zero ();
-		this.changed ();
+		this.elapsed = MyTimeVal.zero ();
 	}
 
 }
@@ -179,9 +182,30 @@ private class TimerButton : Gtk.ToggleButton {
 }
 
 public class StopwatchPlugin : GLib.Object {
+
+	private Timer timer;
 	private TimerButton timerButton;
 	private Xfce.HVBox box;
+
+	private void save (Xfce.PanelPlugin panel_plugin) {
+		var rc = new Xfce.Rc (panel_plugin.save_location (true), false);
+		var elapsed = timer.elapsed;
+		rc.write_entry ("elapsed_sec",  "%ld".printf (elapsed.tv_sec));
+		rc.write_entry ("elapsed_usec", "%ld".printf (elapsed.tv_usec));
+	}
+
+	private void load (Xfce.PanelPlugin panel_plugin) {
+		var rc = new Xfce.Rc (panel_plugin.lookup_rc_file (), true);
+		var elapsed = MyTimeVal.zero ();
+		rc.read_entry ("elapsed_sec",  "0").scanf ("%ld", out elapsed.tv_sec);
+		rc.read_entry ("elapsed_usec", "0").scanf ("%ld", out elapsed.tv_usec);
+		timer.elapsed = elapsed;
+	}
+
 	public StopwatchPlugin (Xfce.PanelPlugin panel_plugin) {
+
+		this.timer = new Timer ();
+		this.load (panel_plugin);
 
 		var orientation = panel_plugin.get_orientation ();
 
@@ -190,7 +214,7 @@ public class StopwatchPlugin : GLib.Object {
 			box.set_orientation (orientation);
 		};
 
-		timerButton = new TimerButton (new Timer ());
+		timerButton = new TimerButton (timer);
 		panel_plugin.add_action_widget (timerButton);
 		box.add (timerButton);
 
@@ -217,6 +241,8 @@ public class StopwatchPlugin : GLib.Object {
 		panel_plugin.size_changed += (p, size) => {
 			return true;
 		};
+
+		panel_plugin.save += this.save;
 	}
 
 
