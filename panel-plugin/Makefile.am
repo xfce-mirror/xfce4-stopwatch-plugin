@@ -21,7 +21,6 @@ BUILT_SOURCES = vala.stamp
 $(stopwatch_VALABUILTSOURCES): vala.stamp
 vala.stamp: $(stopwatch_VALASOURCES)
 	$(VALAC) --vapidir=$(srcdir) --pkg=libxfce4panel-1.0 $^ -C
-	sed -i 's/^\(\s*sscanf\s*(.*\),\s*NULL\s*\()\s*;\s*\)$$/\1\2/' $(^:.vala=.c)
 	touch $@
 endif
 
