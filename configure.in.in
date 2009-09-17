@@ -45,7 +45,7 @@ valac_minimum_version=0.7.5
 AC_PATH_PROG([VALAC], [valac], [valac])
 AC_SUBST(VALAC)
 if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-	XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [0.1])
+	XDT_CHECK_PACKAGE([XFCE4VALA], [xfce4-vala], [4.6])
 fi
 
 dnl check for i18n support
