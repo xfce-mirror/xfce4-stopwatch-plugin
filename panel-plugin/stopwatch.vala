@@ -77,7 +77,7 @@ private class Timer : GLib.Object {
 			else
 				return MyTimeVal.add (this.committed,
 				                      MyTimeVal.sub (MyTimeVal.now (),
-				                                     this.started));
+				                                     (!) this.started));
 		}
 		set {
 			this.stop ();
@@ -114,7 +114,7 @@ private class Timer : GLib.Object {
 		if (this.started != null) {
 			this.committed = MyTimeVal.add (this.committed,
 			                                MyTimeVal.sub (MyTimeVal.now (),
-			                                               this.started));
+			                                               (!) this.started));
 			this.started = null;
 		}
 
