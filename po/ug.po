@@ -21,4 +21,4 @@ msgstr "Stopwatch"
 
 #: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:2
 msgid "Time yourself"
-msgstr ""
+msgstr "ئۆزىنىڭ ۋاقتى"
