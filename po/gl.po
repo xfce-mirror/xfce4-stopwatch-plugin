@@ -1,0 +1,29 @@
+# Galician translation of xfce4-stopwatch-plugin
+# Copyright (C) 2010 Leandro Regueiro
+# This file is distributed under the same license as the xfce package.
+# 
+# Leandro Regueiro <leandro.regueiro@gmail.com>, 2010.
+# 
+# Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
+# colaborar connosco, podes atopar máis información en <http://trasno.net>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce4-stopwatch-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-09 10:08+0000\n"
+"PO-Revision-Date: 2010-09-09 13:11+0200\n"
+"Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
+"Language-Team: Galician <proxecto@trasno.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:1
+msgid "Stopwatch"
+msgstr ""
+
+#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:2
+msgid "Time yourself"
+msgstr "Cronométrate"
