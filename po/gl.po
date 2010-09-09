@@ -6,7 +6,7 @@
 # 
 # Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
 # colaborar connosco, podes atopar máis información en <http://trasno.net>
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-stopwatch-plugin\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:1
 msgid "Stopwatch"
-msgstr ""
+msgstr "Cronómetro"
 
 #: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:2
 msgid "Time yourself"
