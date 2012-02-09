@@ -3,15 +3,15 @@
 # This file is distributed under the same license as
 # the xfce4-stopwatch-plugin package.
 # Hunt Xu <huntxu@live.cn>, 2010.
-# Chipong Luo <chipong_l@yahoo.com>, 2011.
+# Chipong Luo <chipong.luo@yahoo.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce4-stopwatch-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-09 04:04+0000\n"
+"POT-Creation-Date: 2012-02-09 00:42+0000\n"
 "PO-Revision-Date: 2010-11-27 20:35+0800\n"
-"Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
+"Last-Translator: Chipong Luo <chipong.luo@yahoo.com>\n"
 "Language-Team: Chinese (Simplified) <xfce-i18n@xfce.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -24,4 +24,4 @@ msgstr "秒表"
 
 #: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:2
 msgid "Time yourself"
-msgstr "计时器"
+msgstr "自己计时"
