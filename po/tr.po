@@ -23,6 +23,5 @@ msgid "Stopwatch"
 msgstr "Kronometre"
 
 #: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:2
-#, fuzzy
 msgid "Time yourself"
-msgstr "Kendini zamanla"
+msgstr "Kendini ölç"
