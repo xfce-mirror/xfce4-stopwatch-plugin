@@ -3,12 +3,12 @@
 # Copyright (C) 2011 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Alper Tekinalp <alper.tekinalp@gmail.com>, 2011.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-15 16:08+0000\n"
+"POT-Creation-Date: 2012-04-15 13:18+0000\n"
 "PO-Revision-Date: 2011-09-16 00:48+0300\n"
 "Last-Translator: Alper Tekinalp <alper.tekinalp@gmail.com>\n"
 "Language-Team: Turkish\n"
@@ -23,5 +23,6 @@ msgid "Stopwatch"
 msgstr "Kronometre"
 
 #: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:2
+#, fuzzy
 msgid "Time yourself"
-msgstr ""
+msgstr "Kendini zamanla"
