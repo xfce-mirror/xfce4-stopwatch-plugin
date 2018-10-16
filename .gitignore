@@ -1,7 +1,13 @@
+*~
+*.la
+*.lo
+*.o
+INSTALL
 Makefile
 Makefile.in
 aclocal.m4
 autom4te.cache/
+compile
 config.guess
 config.h
 config.h.in
@@ -10,6 +16,7 @@ config.status
 config.sub
 configure
 configure.in
+configure.ac
 depcomp
 icons/16x16/Makefile
 icons/16x16/Makefile.in
@@ -32,6 +39,7 @@ ltmain.sh
 missing
 mkinstalldirs
 panel-plugin/.deps/
+panel-plugin/.libs/
 panel-plugin/Makefile
 panel-plugin/Makefile.in
 panel-plugin/stopwatch.c
@@ -44,5 +52,6 @@ po/Makefile
 po/Makefile.in
 po/Makefile.in.in
 po/POTFILES
+po/*.gmo
 po/stamp-it
 stamp-h1
