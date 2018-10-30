@@ -137,7 +137,7 @@ private class TimerButton : Gtk.ToggleButton {
 		var minutes = (int) ((elapsed.tv_sec / 60) % 60);
 		var hours   = (int) ((elapsed.tv_sec / 60) / 60);
 
-		this.set_label ("%02d:%02d:%02d".printf (hours,
+		this.set_label (" %02d:%02d:%02d ".printf (hours,
 		                                         minutes,
 		                                         seconds));
 	}
