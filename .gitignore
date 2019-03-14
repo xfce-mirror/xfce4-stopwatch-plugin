@@ -2,6 +2,7 @@
 *.la
 *.lo
 *.o
+*.tar.bz2
 INSTALL
 Makefile
 Makefile.in
