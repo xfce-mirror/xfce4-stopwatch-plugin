@@ -209,6 +209,13 @@ public class StopwatchPlugin : Xfce.PanelPlugin {
 			box.set_orientation (orientation);
 		});
 
+		var item = new Gtk.MenuItem.with_label (_("Reset"));
+		item.activate.connect (() => {
+			timerButton.reset ();
+		});
+		item.show_all ();
+		menu_insert_item (item);
+
 		timerButton = new TimerButton (timer);
 		this.add_action_widget (timerButton);
 		box.add (timerButton);
