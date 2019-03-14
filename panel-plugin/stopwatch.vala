@@ -188,7 +188,7 @@ public class StopwatchPlugin : Xfce.PanelPlugin {
 	private Gtk.Box box;
 
 	private void load_rc () {
-		var rc = new Xfce.Rc (lookup_rc_file (), true);
+		var rc = Xfce.Rc.simple_open (lookup_rc_file (), true);
 		var elapsed = MyTimeVal.zero ();
 		rc.read_entry ("elapsed_sec",  "0").scanf ("%ld", out elapsed.tv_sec);
 		rc.read_entry ("elapsed_usec", "0").scanf ("%ld", out elapsed.tv_usec);
@@ -239,7 +239,7 @@ public class StopwatchPlugin : Xfce.PanelPlugin {
 		});
 
 		this.save.connect (() => {
-			var rc = new Xfce.Rc(save_location (true), false);
+			var rc = Xfce.Rc.simple_open(save_location (true), false);
 			var elapsed = timer.elapsed;
 			rc.write_entry ("elapsed_sec",  "%ld".printf (elapsed.tv_sec));
 			rc.write_entry ("elapsed_usec", "%ld".printf (elapsed.tv_usec));
