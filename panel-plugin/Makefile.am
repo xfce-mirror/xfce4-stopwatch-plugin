@@ -1,6 +1,6 @@
 # This file was based on that of xfce4-notes-plugin.
 
-INCLUDES =								\
+AM_CPPFLAGS =								\
 	-I$(top_srcdir)							\
 	-DGETTEXT_PACKAGE=\""$(GETTEXT_PACKAGE)"\"			\
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\"
@@ -56,7 +56,7 @@ desktopdir = $(datadir)/xfce4/panel/plugins
 desktop_DATA = xfce4-stopwatch-plugin.desktop
 @INTLTOOL_DESKTOP_RULE@
 
-%.desktop.in: %.desktop.in.in
+xfce4-stopwatch-plugin.desktop.in: xfce4-stopwatch-plugin.desktop.in.in
 	sed -e "s^@EXTERNAL_PLUGIN_PATH@^$(plugindir)^" \
 		$< > $@
 

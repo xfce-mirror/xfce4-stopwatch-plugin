@@ -20,6 +20,7 @@ AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>])
 AC_COPYRIGHT([Copyright (c) 2019 Natanael Copa <ncopa@alpinelinux.org])
 AC_INIT([xfce4-stopwatch-plugin], [stopwatch_version], [ncopa@alpinelinux.org])
 AC_PREREQ([2.50])
+AC_CONFIG_MACRO_DIRS([m4])
 
 dnl AC_CANONICAL_TARGET()
 
@@ -32,8 +33,11 @@ dnl check for basic programs
 AC_PROG_CC_C_O()
 AC_PROG_LD()
 AC_PROG_INSTALL()
-AC_PROG_LIBTOOL()
-AC_PROG_INTLTOOL()
+IT_PROG_INTLTOOL([0.35.0])
+
+dnl libtool
+LT_PREREQ([2.4]) and
+LT_INIT([disable-static])
 
 dnl check for required packages
 XDT_CHECK_PACKAGE([GTK], [gtk+-3.0])
