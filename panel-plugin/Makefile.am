@@ -28,7 +28,7 @@ endif
 # Plugin
 #
 
-plugindir = $(libexecdir)/xfce4/panel/plugins
+plugindir = $(libdir)/xfce4/panel/plugins
 plugin_LTLIBRARIES = libstopwatch.la
 
 libstopwatch_la_SOURCES =					\
