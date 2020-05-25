@@ -1,6 +1,7 @@
 /* stopwatch.vala
  *
  * Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>
+ * Copyright (c) 2020 Natanael Copa <ncopa@alpinelinux.org>
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
