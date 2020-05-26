@@ -43,7 +43,6 @@ panel-plugin/.deps/
 panel-plugin/.libs/
 panel-plugin/Makefile
 panel-plugin/Makefile.in
-panel-plugin/stopwatch.c
 panel-plugin/vala.stamp
 panel-plugin/xfce4-stopwatch-plugin
 panel-plugin/xfce4-stopwatch-plugin.desktop
