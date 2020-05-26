@@ -36,7 +36,6 @@ stopwatch_new (XfcePanelPlugin *plugin)
 {
 	StopwatchPlugin *stopwatch;
 	GtkOrientation orientation;
-	GtkWidget *label;
 
 	stopwatch = g_slice_new0(StopwatchPlugin);
 
@@ -51,9 +50,11 @@ stopwatch_new (XfcePanelPlugin *plugin)
 	gtk_widget_show (stopwatch->box);
 	gtk_container_add (GTK_CONTAINER (stopwatch->ebox), stopwatch->box);
 
-	label = gtk_label_new (_(" 00:00:00 "));
-	gtk_widget_show (label);
-	gtk_box_pack_start (GTK_BOX (stopwatch->box), label, FALSE, FALSE, 0);
+	stopwatch->label = gtk_label_new (_(" 00:00:00 "));
+	gtk_label_set_selectable (GTK_LABEL (stopwatch->label), FALSE);
+	gtk_label_set_angle (GTK_LABEL (stopwatch->label), orientation == GTK_ORIENTATION_HORIZONTAL ? 0 : 270);
+	gtk_widget_show (stopwatch->label);
+	gtk_box_pack_start (GTK_BOX (stopwatch->box), stopwatch->label, FALSE, FALSE, 0);
 
 	stopwatch->button = gtk_toggle_button_new ();
 	gtk_widget_show (stopwatch->button);
@@ -73,6 +74,32 @@ stopwatch_free (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 }
 
 static void
+stopwatch_orientation_changed (XfcePanelPlugin *plugin,
+			       GtkOrientation orientation,
+			       StopwatchPlugin *stopwatch)
+{
+	gtk_orientable_set_orientation (GTK_ORIENTABLE (stopwatch->box), orientation);
+	gtk_label_set_angle (GTK_LABEL (stopwatch->label), orientation == GTK_ORIENTATION_HORIZONTAL ? 0 : 270);
+}
+
+static gboolean
+stopwatch_size_changed (XfcePanelPlugin *plugin,
+			gint size,
+			StopwatchPlugin *stopwatch)
+{
+	GtkOrientation orientation;
+	orientation = xfce_panel_plugin_get_orientation (plugin);
+
+	if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+		gtk_widget_set_size_request (GTK_WIDGET (plugin), -1, size);
+	} else {
+		gtk_widget_set_size_request (GTK_WIDGET (plugin), size, -1);
+	}
+
+	return TRUE;
+}
+
+static void
 stopwatch_construct (XfcePanelPlugin *plugin)
 {
 	StopwatchPlugin *stopwatch;
@@ -84,4 +111,6 @@ stopwatch_construct (XfcePanelPlugin *plugin)
 	xfce_panel_plugin_add_action_widget (plugin, stopwatch->ebox);
 
 	g_signal_connect (G_OBJECT (plugin), "free-data", G_CALLBACK (stopwatch_free), stopwatch);
+	g_signal_connect (G_OBJECT (plugin), "orientation-changed", G_CALLBACK (stopwatch_orientation_changed), stopwatch);
+	g_signal_connect (G_OBJECT (plugin), "size-changed", G_CALLBACK (stopwatch_size_changed), stopwatch);
 }
