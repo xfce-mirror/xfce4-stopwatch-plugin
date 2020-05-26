@@ -57,6 +57,10 @@ stopwatch_new (XfcePanelPlugin *plugin)
 	gtk_box_pack_start (GTK_BOX (stopwatch->box), stopwatch->label, FALSE, FALSE, 0);
 
 	stopwatch->button = gtk_toggle_button_new ();
+	gtk_widget_set_can_default (stopwatch->button, FALSE);
+	gtk_widget_set_can_focus (stopwatch->button, FALSE);
+	gtk_widget_set_focus_on_click (stopwatch->button, FALSE);
+	gtk_button_set_relief (GTK_BUTTON (stopwatch->button), FALSE);
 	gtk_widget_show (stopwatch->button);
 	update_start_stop_image (GTK_TOGGLE_BUTTON (stopwatch->button));
 	gtk_box_pack_start (GTK_BOX (stopwatch->box), stopwatch->button, FALSE, FALSE, 0);
