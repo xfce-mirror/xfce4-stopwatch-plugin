@@ -107,10 +107,10 @@ stopwatch_timer_reset (StopwatchTimer *timer)
  * Return: total number of microseconds as guint64.
  **/
 
-guint64 *
+guint64
 stopwatch_timer_elapsed (StopwatchTimer *timer)
 {
-	g_return_if_fail (timer != NULL);
+	g_return_val_if_fail (timer != NULL, 0);
 
 	return timer->active ? g_get_monotonic_time () - timer->start : timer->end - timer->start;
 }

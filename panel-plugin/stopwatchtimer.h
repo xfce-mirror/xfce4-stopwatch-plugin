@@ -24,7 +24,7 @@ void stopwatch_timer_start (StopwatchTimer *timer);
 void stopwatch_timer_stop (StopwatchTimer *timer);
 void stopwatch_timer_reset (StopwatchTimer *timer);
 
-guint64 *stopwatch_timer_elapsed (StopwatchTimer *timer);
+guint64 stopwatch_timer_elapsed (StopwatchTimer *timer);
 
 G_END_DECLS
 
