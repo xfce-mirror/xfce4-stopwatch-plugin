@@ -1,3 +1,12 @@
+0.4.0
+=====
+
+- Rewrite in C
+- Fix horizontal mode
+- Improve user interface by use a start/stop button rather than reset
+- Reset via menu entry
+- Save/load running state so timer continues after panel reload
+
 0.3.1
 =====
 [Please note that this is a development release]
