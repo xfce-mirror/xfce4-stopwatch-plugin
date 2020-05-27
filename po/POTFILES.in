@@ -1,2 +1,2 @@
-panel-plugin/stopwatch.vala
+panel-plugin/stopwatch.c
 panel-plugin/xfce4-stopwatch-plugin.desktop.in.in

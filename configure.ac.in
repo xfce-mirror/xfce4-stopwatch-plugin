@@ -68,11 +68,6 @@ echo
 echo "Build Configuration:"
 echo
 echo "* Maintainer Mode:        $USE_MAINTAINER_MODE"
-if test "x$USE_MAINTAINER_MODE" = "xyes" ; then
-echo "    * Vala:               $has_valac"
-echo "      You need Vala $valac_minimum_version or higher (run $VALAC --version)"
-echo
-fi
 echo "* Debug Support:          $enable_debug"
 echo
 
