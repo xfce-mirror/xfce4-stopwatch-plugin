@@ -46,9 +46,9 @@ stopwatch_update_display (gpointer ptr)
 	gchar buf[16];
 	StopwatchPlugin *stopwatch = (StopwatchPlugin *)ptr;
 	guint64 elapsed = (unsigned long) stopwatch_timer_elapsed (stopwatch->timer) / 1000000;
-	unsigned int seconds = elapsed % 60;
-	unsigned int minutes = (elapsed / 60) % 60;
-	unsigned int hours = (elapsed / 60 * 60);
+	guint seconds = elapsed % 60;
+	guint minutes = (elapsed / 60) % 60;
+	guint hours = (elapsed / (60 * 60));
 
 	g_snprintf (buf, sizeof(buf), "%02d:%02d:%02d", hours, minutes, seconds);
 	gtk_label_set_text (GTK_LABEL (stopwatch->label), buf);
