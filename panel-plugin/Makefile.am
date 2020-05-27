@@ -12,7 +12,9 @@ plugindir = $(libdir)/xfce4/panel/plugins
 plugin_LTLIBRARIES = libstopwatch.la
 
 libstopwatch_la_SOURCES =						\
+	stopwatchtimer.h						\
 	stopwatchtimer.c						\
+	stopwatch.h							\
 	stopwatch.c
 
 libstopwatch_la_CFLAGS =						\
