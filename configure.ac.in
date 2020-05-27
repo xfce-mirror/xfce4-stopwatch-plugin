@@ -17,7 +17,7 @@ m4_define([stopwatch_version], [0.3.1])
 
 dnl initialize autoconf
 AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>])
-AC_COPYRIGHT([Copyright (c) 2019 Natanael Copa <ncopa@alpinelinux.org])
+AC_COPYRIGHT([Copyright (c) 2020 Natanael Copa <ncopa@alpinelinux.org])
 AC_INIT([xfce4-stopwatch-plugin], [stopwatch_version], [ncopa@alpinelinux.org])
 AC_PREREQ([2.50])
 AC_CONFIG_MACRO_DIRS([m4])
@@ -44,11 +44,6 @@ XDT_CHECK_PACKAGE([GTK], [gtk+-3.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.13.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [4.13.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.13.0])
-
-dnl Check for valac
-valac_minimum_version=0.7.5
-AC_PATH_PROG([VALAC], [valac], [valac])
-AC_SUBST(VALAC)
 
 dnl check for i18n support
 XDT_I18N([@LINGUAS@])
