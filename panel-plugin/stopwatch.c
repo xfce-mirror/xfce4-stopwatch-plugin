@@ -61,6 +61,42 @@ stopwatch_save (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 }
 
 static void
+stopwatch_load (StopwatchPlugin *stopwatch)
+{
+	XfceRc *rc;
+	gchar *filename;
+	guint64 start, end;
+	gboolean active;
+	const gchar *value;
+
+	filename = xfce_panel_plugin_save_location (stopwatch->plugin, TRUE);
+
+	if (G_UNLIKELY (filename == NULL)) {
+		DBG ("Failed to open config file %s", filename);
+		return;
+	}
+
+	rc = xfce_rc_simple_open (filename, TRUE);
+	g_free (filename);
+
+	if (G_UNLIKELY (rc == NULL)) {
+		return;
+	}
+
+	value = xfce_rc_read_entry (rc, "start_time", "0");
+	start = (guint64) g_ascii_strtoll (value, NULL, 10);
+
+	value = xfce_rc_read_entry (rc, "end_time", "0");
+	end = (guint64) g_ascii_strtoll (value, NULL, 10);
+
+	active = xfce_rc_read_bool_entry (rc, "active", FALSE);
+	xfce_rc_close (rc);
+
+	stopwatch_timer_set_state (stopwatch->timer, start, end, active);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (stopwatch->button), active);
+}
+
+static void
 stopwatch_toggle (GtkToggleButton *button, gpointer user_data) {
 	StopwatchPlugin *stopwatch = (StopwatchPlugin *)user_data;
 	gboolean active = update_start_stop_image (button);
@@ -110,7 +146,6 @@ stopwatch_new (XfcePanelPlugin *plugin)
 	gtk_container_add (GTK_CONTAINER (stopwatch->ebox), stopwatch->box);
 
 	stopwatch->label = gtk_label_new (NULL);
-	stopwatch_update_display(stopwatch);
 	gtk_label_set_selectable (GTK_LABEL (stopwatch->label), FALSE);
 	gtk_label_set_angle (GTK_LABEL (stopwatch->label), orientation == GTK_ORIENTATION_HORIZONTAL ? 0 : 270);
 	gtk_widget_show (stopwatch->label);
@@ -122,8 +157,11 @@ stopwatch_new (XfcePanelPlugin *plugin)
 	gtk_widget_set_focus_on_click (stopwatch->button, FALSE);
 	gtk_button_set_relief (GTK_BUTTON (stopwatch->button), FALSE);
 	gtk_widget_show (stopwatch->button);
-	update_start_stop_image (GTK_TOGGLE_BUTTON (stopwatch->button));
 	gtk_box_pack_start (GTK_BOX (stopwatch->box), stopwatch->button, FALSE, FALSE, 0);
+
+	stopwatch_load (stopwatch);
+	update_start_stop_image (GTK_TOGGLE_BUTTON (stopwatch->button));
+	stopwatch_update_display(stopwatch);
 
 	g_signal_connect (stopwatch->button, "toggled", G_CALLBACK (stopwatch_toggle), stopwatch);
 
