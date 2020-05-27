@@ -28,6 +28,38 @@ update_start_stop_image (GtkToggleButton *button) {
 	return active;
 }
 
+void
+stopwatch_save (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
+{
+	XfceRc *rc;
+	gchar *filename;
+	guint64 start, end;
+	gboolean active;
+	gchar buf[16];
+
+	filename = xfce_panel_plugin_save_location (plugin, TRUE);
+
+	if (G_UNLIKELY (filename == NULL)) {
+		DBG ("Failed to open config file %s", filename);
+		return;
+	}
+
+	rc = xfce_rc_simple_open (filename, FALSE);
+	g_free (filename);
+
+	if (G_UNLIKELY (rc == NULL)) {
+		return;
+	}
+
+	stopwatch_timer_get_state (stopwatch->timer, &start, &end, &active);
+	g_snprintf (buf, sizeof(buf), "%zu", start);
+	xfce_rc_write_entry (rc, "start_time", buf);
+	g_snprintf (buf, sizeof(buf), "%zu", end);
+	xfce_rc_write_entry (rc, "end_time", buf);
+	xfce_rc_write_bool_entry (rc, "active", active);
+	xfce_rc_close (rc);
+}
+
 static void
 stopwatch_toggle (GtkToggleButton *button, gpointer user_data) {
 	StopwatchPlugin *stopwatch = (StopwatchPlugin *)user_data;
@@ -38,6 +70,7 @@ stopwatch_toggle (GtkToggleButton *button, gpointer user_data) {
 		stopwatch_timer_stop(stopwatch->timer);
 	}
 	gtk_widget_set_sensitive (stopwatch->menuitem_reset, !active);
+	stopwatch_save (stopwatch->plugin, stopwatch);
 }
 
 static gboolean
@@ -161,4 +194,6 @@ stopwatch_construct (XfcePanelPlugin *plugin)
 	g_signal_connect (G_OBJECT (plugin), "free-data", G_CALLBACK (stopwatch_free), stopwatch);
 	g_signal_connect (G_OBJECT (plugin), "orientation-changed", G_CALLBACK (stopwatch_orientation_changed), stopwatch);
 	g_signal_connect (G_OBJECT (plugin), "size-changed", G_CALLBACK (stopwatch_size_changed), stopwatch);
+	g_signal_connect (G_OBJECT (plugin), "save", G_CALLBACK (stopwatch_save), stopwatch);
+
 }

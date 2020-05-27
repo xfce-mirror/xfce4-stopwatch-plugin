@@ -24,5 +24,7 @@ typedef struct {
 
 } StopwatchPlugin;
 
+void stopwatch_save (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch);
+
 G_END_DECLS
 #endif

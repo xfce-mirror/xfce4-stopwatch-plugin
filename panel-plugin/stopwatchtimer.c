@@ -115,3 +115,38 @@ stopwatch_timer_elapsed (StopwatchTimer *timer)
 	return timer->active ? g_get_monotonic_time () - timer->start : timer->end - timer->start;
 }
 
+/**
+ * stopwatch_timer_get_state:
+ * @timer: a #StopwatchTimer.
+ * @start: return location for start time
+ * @end: return location for end time
+ * @active: return location for active
+ *
+ * Set the current state in @start, @end and @active.
+ **/
+void
+stopwatch_timer_get_state (StopwatchTimer *timer, guint64 *start, guint64 *end, gboolean *active)
+{
+	*start = timer->start;
+	*end = timer->end;
+	*active = timer->active;
+}
+
+/**
+ * stopwatch_timer_get_state:
+ * @timer: a #StopwatchTimer.
+ * @start: start time
+ * @end: end time
+ * @active: active
+ *
+ * Set the current state from @start, @end and @active.
+ **/
+void
+stopwatch_timer_set_state (StopwatchTimer *timer, guint64 start, guint64 end, gboolean active)
+{
+	timer->start = start;
+	timer->end = end;
+	timer->active = active;
+}
+
+
