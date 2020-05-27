@@ -16,6 +16,9 @@ typedef struct {
 	GtkWidget	*box;
 	GtkWidget	*button;
 	GtkWidget	*label;
+	GTimer		*timer;
+	guint		timeout_id;
+
 } StopwatchPlugin;
 
 G_END_DECLS

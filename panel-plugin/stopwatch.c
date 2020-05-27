@@ -14,7 +14,7 @@
 static void stopwatch_construct (XfcePanelPlugin *plugin);
 XFCE_PANEL_PLUGIN_REGISTER (stopwatch_construct);
 
-static void
+static gint
 update_start_stop_image (GtkToggleButton *button) {
 	int active;
 	GtkWidget *image;
@@ -24,11 +24,32 @@ update_start_stop_image (GtkToggleButton *button) {
 
 	image = gtk_image_new_from_icon_name (icon_names[active & 1], GTK_ICON_SIZE_BUTTON);
 	gtk_button_set_image (GTK_BUTTON (button), image);
+	return active;
 }
 
 static void
 stopwatch_toggle (GtkToggleButton *button, gpointer user_data) {
-	update_start_stop_image (button);
+	StopwatchPlugin *stopwatch = (StopwatchPlugin *)user_data;
+	if (update_start_stop_image (button)) {
+		g_timer_continue(stopwatch->timer);
+	} else {
+		g_timer_stop(stopwatch->timer);
+	}
+}
+
+static gboolean
+stopwatch_update_display (gpointer ptr)
+{
+	gchar buf[16];
+	StopwatchPlugin *stopwatch = (StopwatchPlugin *)ptr;
+	unsigned long elapsed = (unsigned long) g_timer_elapsed (stopwatch->timer, NULL);
+	unsigned int seconds = elapsed % 60;
+	unsigned int minutes = (elapsed / 60) % 60;
+	unsigned int hours = (elapsed / 60 * 60);
+
+	g_snprintf (buf, sizeof(buf), "%02d:%02d:%02d", hours, minutes, seconds);
+	gtk_label_set_text (GTK_LABEL (stopwatch->label), buf);
+	return TRUE;
 }
 
 static StopwatchPlugin *
@@ -41,6 +62,11 @@ stopwatch_new (XfcePanelPlugin *plugin)
 
 	stopwatch->plugin = plugin;
 
+	stopwatch->timer = g_timer_new();
+	/* g_timer_new will start the timer, stop and reset it, til user starts it */
+	g_timer_stop(stopwatch->timer);
+	g_timer_reset(stopwatch->timer);
+
 	stopwatch->ebox = gtk_event_box_new ();
 	gtk_widget_show (stopwatch->ebox);
 
@@ -50,7 +76,8 @@ stopwatch_new (XfcePanelPlugin *plugin)
 	gtk_widget_show (stopwatch->box);
 	gtk_container_add (GTK_CONTAINER (stopwatch->ebox), stopwatch->box);
 
-	stopwatch->label = gtk_label_new (_(" 00:00:00 "));
+	stopwatch->label = gtk_label_new (NULL);
+	stopwatch_update_display(stopwatch);
 	gtk_label_set_selectable (GTK_LABEL (stopwatch->label), FALSE);
 	gtk_label_set_angle (GTK_LABEL (stopwatch->label), orientation == GTK_ORIENTATION_HORIZONTAL ? 0 : 270);
 	gtk_widget_show (stopwatch->label);
@@ -67,12 +94,15 @@ stopwatch_new (XfcePanelPlugin *plugin)
 
 	g_signal_connect (stopwatch->button, "toggled", G_CALLBACK (stopwatch_toggle), stopwatch);
 
+	stopwatch->timeout_id = g_timeout_add_seconds (1, stopwatch_update_display, stopwatch);
+
 	return stopwatch;
 }
 
 static void
 stopwatch_free (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 {
+	g_source_remove(stopwatch->timeout_id);
 	gtk_widget_destroy (stopwatch->box);
 	g_slice_free (StopwatchPlugin, stopwatch);
 }
