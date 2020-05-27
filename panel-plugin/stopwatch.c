@@ -9,6 +9,7 @@
 #include <libxfce4panel/xfce-panel-plugin.h>
 #include <libxfce4util/libxfce4util.h>
 
+#include "stopwatchtimer.h"
 #include "stopwatch.h"
 
 static void stopwatch_construct (XfcePanelPlugin *plugin);
@@ -30,11 +31,13 @@ update_start_stop_image (GtkToggleButton *button) {
 static void
 stopwatch_toggle (GtkToggleButton *button, gpointer user_data) {
 	StopwatchPlugin *stopwatch = (StopwatchPlugin *)user_data;
-	if (update_start_stop_image (button)) {
-		g_timer_continue(stopwatch->timer);
+	gboolean active = update_start_stop_image (button);
+	if (active) {
+		stopwatch_timer_start(stopwatch->timer);
 	} else {
-		g_timer_stop(stopwatch->timer);
+		stopwatch_timer_stop(stopwatch->timer);
 	}
+	gtk_widget_set_sensitive (stopwatch->menuitem_reset, !active);
 }
 
 static gboolean
@@ -42,7 +45,7 @@ stopwatch_update_display (gpointer ptr)
 {
 	gchar buf[16];
 	StopwatchPlugin *stopwatch = (StopwatchPlugin *)ptr;
-	unsigned long elapsed = (unsigned long) g_timer_elapsed (stopwatch->timer, NULL);
+	guint64 elapsed = (unsigned long) stopwatch_timer_elapsed (stopwatch->timer) / 1000000;
 	unsigned int seconds = elapsed % 60;
 	unsigned int minutes = (elapsed / 60) % 60;
 	unsigned int hours = (elapsed / 60 * 60);
@@ -62,10 +65,7 @@ stopwatch_new (XfcePanelPlugin *plugin)
 
 	stopwatch->plugin = plugin;
 
-	stopwatch->timer = g_timer_new();
-	/* g_timer_new will start the timer, stop and reset it, til user starts it */
-	g_timer_stop(stopwatch->timer);
-	g_timer_reset(stopwatch->timer);
+	stopwatch->timer = stopwatch_timer_new();
 
 	stopwatch->ebox = gtk_event_box_new ();
 	gtk_widget_show (stopwatch->ebox);
@@ -134,6 +134,14 @@ stopwatch_size_changed (XfcePanelPlugin *plugin,
 }
 
 static void
+stopwatch_reset (GtkWidget *item, StopwatchPlugin *stopwatch)
+{
+	stopwatch_timer_reset (stopwatch->timer);
+	gtk_widget_set_sensitive(item, FALSE);
+	stopwatch_update_display(stopwatch);
+}
+
+static void
 stopwatch_construct (XfcePanelPlugin *plugin)
 {
 	StopwatchPlugin *stopwatch;
@@ -143,6 +151,12 @@ stopwatch_construct (XfcePanelPlugin *plugin)
 	stopwatch = stopwatch_new (plugin);
 	gtk_container_add (GTK_CONTAINER (plugin), stopwatch->ebox);
 	xfce_panel_plugin_add_action_widget (plugin, stopwatch->ebox);
+
+	stopwatch->menuitem_reset = gtk_menu_item_new_with_label(_("Reset"));
+	gtk_widget_set_sensitive (stopwatch->menuitem_reset, FALSE);
+	gtk_widget_show_all (stopwatch->menuitem_reset);
+	g_signal_connect (G_OBJECT (stopwatch->menuitem_reset), "activate", G_CALLBACK (stopwatch_reset), stopwatch);
+	xfce_panel_plugin_menu_insert_item (plugin, GTK_MENU_ITEM (stopwatch->menuitem_reset));
 
 	g_signal_connect (G_OBJECT (plugin), "free-data", G_CALLBACK (stopwatch_free), stopwatch);
 	g_signal_connect (G_OBJECT (plugin), "orientation-changed", G_CALLBACK (stopwatch_orientation_changed), stopwatch);

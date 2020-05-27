@@ -10,13 +10,16 @@
 
 G_BEGIN_DECLS
 
+#include "stopwatchtimer.h"
+
 typedef struct {
 	XfcePanelPlugin *plugin;
 	GtkWidget	*ebox;
 	GtkWidget	*box;
 	GtkWidget	*button;
 	GtkWidget	*label;
-	GTimer		*timer;
+	GtkWidget	*menuitem_reset;
+	StopwatchTimer	*timer;
 	guint		timeout_id;
 
 } StopwatchPlugin;

@@ -11,7 +11,8 @@ AM_CPPFLAGS =								\
 plugindir = $(libdir)/xfce4/panel/plugins
 plugin_LTLIBRARIES = libstopwatch.la
 
-libstopwatch_la_SOURCES =					\
+libstopwatch_la_SOURCES =						\
+	stopwatchtimer.c						\
 	stopwatch.c
 
 libstopwatch_la_CFLAGS =						\
