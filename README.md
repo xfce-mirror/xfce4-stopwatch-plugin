@@ -3,6 +3,16 @@ xfce4-stopwatch-plugin
 
 A simple stopwatch plugin for Xfce panel.
 
+Required packages
+=================
+
+xfce4-stopwatch-plugin depends on the following packages:
+
+- glib
+- gtk+-3.0
+- libxfce4util 4.13.0 or above
+- xfce4-panel 4.13.0 or above
+
 Installation
 ============
 

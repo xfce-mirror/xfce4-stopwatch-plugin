@@ -19,13 +19,11 @@ libstopwatch_la_SOURCES =						\
 
 libstopwatch_la_CFLAGS =						\
 	@LIBXFCE4PANEL_CFLAGS@						\
-	@LIBXFCE4UTIL_CFLAGS@						\
-	@LIBXFCE4UI_CFLAGS@
+	@LIBXFCE4UTIL_CFLAGS@
 
 libstopwatch_la_LIBADD =						\
 	@LIBXFCE4PANEL_LIBS@						\
-	@LIBXFCE4UTIL_LIBS@						\
-	@LIBXFCE4UI_LIBS@
+	@LIBXFCE4UTIL_LIBS@
 
 #
 # Plugin desktop file
