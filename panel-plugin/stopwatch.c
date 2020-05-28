@@ -221,7 +221,7 @@ stopwatch_construct (XfcePanelPlugin *plugin)
 	xfce_panel_plugin_add_action_widget (plugin, stopwatch->ebox);
 
 	stopwatch->menuitem_reset = gtk_menu_item_new_with_label(_("Reset"));
-	gtk_widget_set_sensitive (stopwatch->menuitem_reset, FALSE);
+	gtk_widget_set_sensitive (stopwatch->menuitem_reset, !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (stopwatch->button)));
 	gtk_widget_show_all (stopwatch->menuitem_reset);
 	g_signal_connect (G_OBJECT (stopwatch->menuitem_reset), "activate", G_CALLBACK (stopwatch_reset), stopwatch);
 	xfce_panel_plugin_menu_insert_item (plugin, GTK_MENU_ITEM (stopwatch->menuitem_reset));
