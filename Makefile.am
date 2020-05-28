@@ -12,7 +12,6 @@ distclean-local:
 
 EXTRA_DIST =								\
 	AUTHORS								\
-	ChangeLog							\
 	COPYING								\
 	INSTALL								\
 	NEWS								\
