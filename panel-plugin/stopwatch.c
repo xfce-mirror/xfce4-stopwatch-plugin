@@ -34,7 +34,6 @@ stopwatch_save (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 	XfceRc *rc;
 	gchar *filename;
 	guint64 start, end;
-	gboolean active;
 	gchar buf[16];
 
 	filename = xfce_panel_plugin_save_location (plugin, TRUE);
@@ -51,12 +50,11 @@ stopwatch_save (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 		return;
 	}
 
-	stopwatch_timer_get_state (stopwatch->timer, &start, &end, &active);
+	stopwatch_timer_get_state (stopwatch->timer, &start, &end);
 	g_snprintf (buf, sizeof(buf), "%zu", start);
 	xfce_rc_write_entry (rc, "start_time", buf);
 	g_snprintf (buf, sizeof(buf), "%zu", end);
 	xfce_rc_write_entry (rc, "end_time", buf);
-	xfce_rc_write_bool_entry (rc, "active", active);
 	xfce_rc_close (rc);
 }
 
@@ -66,7 +64,6 @@ stopwatch_load (StopwatchPlugin *stopwatch)
 	XfceRc *rc;
 	gchar *filename;
 	guint64 start, end;
-	gboolean active;
 	const gchar *value;
 
 	filename = xfce_panel_plugin_save_location (stopwatch->plugin, TRUE);
@@ -89,11 +86,11 @@ stopwatch_load (StopwatchPlugin *stopwatch)
 	value = xfce_rc_read_entry (rc, "end_time", "0");
 	end = (guint64) g_ascii_strtoll (value, NULL, 10);
 
-	active = xfce_rc_read_bool_entry (rc, "active", FALSE);
 	xfce_rc_close (rc);
 
-	stopwatch_timer_set_state (stopwatch->timer, start, end, active);
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (stopwatch->button), active);
+	stopwatch_timer_set_state (stopwatch->timer, start, end);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (stopwatch->button),
+				      stopwatch_timer_is_active(stopwatch->timer));
 }
 
 static void

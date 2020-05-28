@@ -13,7 +13,6 @@
 struct _StopwatchTimer {
 	guint64 start;
 	guint64 end;
-	guint active : 1;
 };
 
 /**
@@ -27,7 +26,6 @@ StopwatchTimer *
 stopwatch_timer_new (void)
 {
 	StopwatchTimer *timer = g_new (StopwatchTimer, 1);
-	timer->active = FALSE;
 	timer->start = 0;
 	timer->end = 0;
 	return timer;
@@ -58,10 +56,9 @@ void
 stopwatch_timer_start (StopwatchTimer *timer)
 {
 	g_return_if_fail (timer != NULL);
-	g_return_if_fail (timer->active == FALSE);
 
 	timer->start = g_get_monotonic_time () - (timer->end - timer->start);
-	timer->active = TRUE;
+	timer->end = 0;
 }
 
 /**
@@ -76,7 +73,6 @@ stopwatch_timer_stop (StopwatchTimer *timer)
 {
 	g_return_if_fail (timer != NULL);
 
-	timer->active = FALSE;
 	timer->end = g_get_monotonic_time ();
 }
 
@@ -84,14 +80,14 @@ stopwatch_timer_stop (StopwatchTimer *timer)
  * stopwatch_timer_reset:
  * @timer: a #StopwatchTimer.
  *
- * Resets start and end time of the timer.
+ * Resets start and end time of the timer without changing the running state.
  **/
 void
 stopwatch_timer_reset (StopwatchTimer *timer)
 {
 	g_return_if_fail (timer != NULL);
 
-	timer->start = timer->active ? g_get_monotonic_time () : 0;
+	timer->start = stopwatch_timer_is_active (timer) ? g_get_monotonic_time () : 0;
 	timer->end = 0;
 }
 
@@ -112,7 +108,7 @@ stopwatch_timer_elapsed (StopwatchTimer *timer)
 {
 	g_return_val_if_fail (timer != NULL, 0);
 
-	return timer->active ? g_get_monotonic_time () - timer->start : timer->end - timer->start;
+	return stopwatch_timer_is_active (timer) ? g_get_monotonic_time () - timer->start : timer->end - timer->start;
 }
 
 /**
@@ -120,16 +116,14 @@ stopwatch_timer_elapsed (StopwatchTimer *timer)
  * @timer: a #StopwatchTimer.
  * @start: return location for start time
  * @end: return location for end time
- * @active: return location for active
  *
- * Set the current state in @start, @end and @active.
+ * Set the current state in @start and @end.
  **/
 void
-stopwatch_timer_get_state (StopwatchTimer *timer, guint64 *start, guint64 *end, gboolean *active)
+stopwatch_timer_get_state (StopwatchTimer *timer, guint64 *start, guint64 *end)
 {
 	*start = timer->start;
 	*end = timer->end;
-	*active = timer->active;
 }
 
 /**
@@ -137,16 +131,28 @@ stopwatch_timer_get_state (StopwatchTimer *timer, guint64 *start, guint64 *end, 
  * @timer: a #StopwatchTimer.
  * @start: start time
  * @end: end time
- * @active: active
  *
- * Set the current state from @start, @end and @active.
+ * Set the current state from @start and @end.
  **/
 void
-stopwatch_timer_set_state (StopwatchTimer *timer, guint64 start, guint64 end, gboolean active)
+stopwatch_timer_set_state (StopwatchTimer *timer, guint64 start, guint64 end)
 {
 	timer->start = start;
 	timer->end = end;
-	timer->active = active;
 }
 
+/**
+ * stopwatch_timer_is_active:
+ * @timer: a #StopwatchTimer
+ *
+ * Exposes wheter the timer is currently active.
+ *
+ * Returns: %TRUE if timer is running, %FALSE otherwise
+ **/
+gboolean
+stopwatch_timer_is_active (StopwatchTimer *timer)
+{
+	g_return_val_if_fail (timer != NULL, FALSE);
 
+	return timer->start != 0 && timer->end == 0;
+}
