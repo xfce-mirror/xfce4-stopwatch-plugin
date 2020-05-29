@@ -23,10 +23,10 @@ void stopwatch_timer_destroy (StopwatchTimer *timer);
 void stopwatch_timer_start (StopwatchTimer *timer);
 void stopwatch_timer_stop (StopwatchTimer *timer);
 void stopwatch_timer_reset (StopwatchTimer *timer);
-void stopwatch_timer_get_state (StopwatchTimer *timer, guint64 *start, guint64 *end);
-void stopwatch_timer_set_state (StopwatchTimer *timer, guint64 start, guint64 end);
+void stopwatch_timer_get_state (StopwatchTimer *timer, gint64 *start, gint64 *end);
+void stopwatch_timer_set_state (StopwatchTimer *timer, gint64 start, gint64 end);
 
-guint64 stopwatch_timer_elapsed (StopwatchTimer *timer);
+gint64 stopwatch_timer_elapsed (StopwatchTimer *timer);
 gboolean stopwatch_timer_is_active (StopwatchTimer *timer);
 
 G_END_DECLS

@@ -33,8 +33,8 @@ stopwatch_save (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 {
 	XfceRc *rc;
 	gchar *filename;
-	guint64 start, end;
-	gchar buf[16];
+	gint64 start, end;
+	gchar buf[32];
 
 	filename = xfce_panel_plugin_save_location (plugin, TRUE);
 
@@ -63,7 +63,7 @@ stopwatch_load (StopwatchPlugin *stopwatch)
 {
 	XfceRc *rc;
 	gchar *filename;
-	guint64 start, end;
+	gint64 start, end;
 	const gchar *value;
 
 	filename = xfce_panel_plugin_save_location (stopwatch->plugin, TRUE);
@@ -81,10 +81,10 @@ stopwatch_load (StopwatchPlugin *stopwatch)
 	}
 
 	value = xfce_rc_read_entry (rc, "start_time", "0");
-	start = (guint64) g_ascii_strtoll (value, NULL, 10);
+	start = (gint64) g_ascii_strtoll (value, NULL, 10);
 
 	value = xfce_rc_read_entry (rc, "end_time", "0");
-	end = (guint64) g_ascii_strtoll (value, NULL, 10);
+	end = (gint64) g_ascii_strtoll (value, NULL, 10);
 
 	xfce_rc_close (rc);
 
@@ -111,7 +111,7 @@ stopwatch_update_display (gpointer ptr)
 {
 	gchar buf[16];
 	StopwatchPlugin *stopwatch = (StopwatchPlugin *)ptr;
-	guint64 elapsed = (unsigned long) stopwatch_timer_elapsed (stopwatch->timer) / 1000000;
+	gint64 elapsed = (unsigned long) stopwatch_timer_elapsed (stopwatch->timer) / 1000000;
 	guint seconds = elapsed % 60;
 	guint minutes = (elapsed / 60) % 60;
 	guint hours = (elapsed / (60 * 60));

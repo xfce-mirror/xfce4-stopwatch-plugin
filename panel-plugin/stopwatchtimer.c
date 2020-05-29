@@ -11,8 +11,8 @@
 */
 
 struct _StopwatchTimer {
-	guint64 start;
-	guint64 end;
+	gint64 start;
+	gint64 end;
 };
 
 /**
@@ -100,15 +100,27 @@ stopwatch_timer_reset (StopwatchTimer *timer)
  * elapsed time betthen the time it was started and the time it was
  * stopped.
  *
- * Return: total number of microseconds as guint64.
+ * Return: total number of microseconds as gint64.
  **/
 
-guint64
+gint64
 stopwatch_timer_elapsed (StopwatchTimer *timer)
 {
 	g_return_val_if_fail (timer != NULL, 0);
 
 	return stopwatch_timer_is_active (timer) ? g_get_monotonic_time () - timer->start : timer->end - timer->start;
+}
+
+static gint64
+monotonic_to_real_time (gint64 t)
+{
+	return t == 0 ? 0 : g_get_real_time () - (g_get_monotonic_time () - t);
+}
+
+static gint64
+real_to_monotonic_time (gint64 t)
+{
+	return t == 0 ? 0 : g_get_monotonic_time () - (g_get_real_time () - t);
 }
 
 /**
@@ -117,28 +129,28 @@ stopwatch_timer_elapsed (StopwatchTimer *timer)
  * @start: return location for start time
  * @end: return location for end time
  *
- * Set the current state in @start and @end.
+ * Set the current state in @start and @end converted into real time.
  **/
 void
-stopwatch_timer_get_state (StopwatchTimer *timer, guint64 *start, guint64 *end)
+stopwatch_timer_get_state (StopwatchTimer *timer, gint64 *start, gint64 *end)
 {
-	*start = timer->start;
-	*end = timer->end;
+	*start = monotonic_to_real_time (timer->start);
+	*end = monotonic_to_real_time (timer->end);
 }
 
 /**
  * stopwatch_timer_get_state:
  * @timer: a #StopwatchTimer.
- * @start: start time
- * @end: end time
+ * @start: start time as real time
+ * @end: end time as real time
  *
  * Set the current state from @start and @end.
  **/
 void
-stopwatch_timer_set_state (StopwatchTimer *timer, guint64 start, guint64 end)
+stopwatch_timer_set_state (StopwatchTimer *timer, gint64 start, gint64 end)
 {
-	timer->start = start;
-	timer->end = end;
+	timer->start = real_to_monotonic_time (start);
+	timer->end = real_to_monotonic_time (end);
 }
 
 /**
