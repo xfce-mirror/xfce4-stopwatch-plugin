@@ -13,7 +13,6 @@ distclean-local:
 EXTRA_DIST =								\
 	AUTHORS								\
 	COPYING								\
-	INSTALL								\
 	NEWS								\
 	README.md							\
 	intltool-extract.in						\
