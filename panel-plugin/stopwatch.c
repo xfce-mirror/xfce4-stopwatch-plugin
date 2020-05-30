@@ -6,7 +6,7 @@
 #include <config.h>
 #endif
 
-#include <libxfce4panel/xfce-panel-plugin.h>
+#include <libxfce4panel/libxfce4panel.h>
 #include <libxfce4util/libxfce4util.h>
 
 #include "stopwatchtimer.h"
