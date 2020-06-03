@@ -17,7 +17,7 @@ m4_define([stopwatch_version_major], [0])
 m4_define([stopwatch_version_minor], [4])
 m4_define([stopwatch_version_micro], [0])
 m4_define([stopwatch_version_build], [@REVISION@])
-m4_define([stopwatch_version_tag], [])
+m4_define([stopwatch_version_tag], [git])
 m4_define([stopwatch_version], [stopwatch_version_major().stopwatch_version_minor().stopwatch_version_micro()ifelse(stopwatch_version_tag(), [git], [stopwatch_version_tag()-stopwatch_version_build()], [stopwatch_version_tag()])])
 
 dnl initialize autoconf
