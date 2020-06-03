@@ -28,6 +28,7 @@ dnl initialize automake
 AM_INIT_AUTOMAKE([1.11 dist-bzip2 foreign])
 AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE()
+AM_SILENT_RULES([yes])
 
 dnl check for basic programs
 AC_PROG_CC_C_O()
