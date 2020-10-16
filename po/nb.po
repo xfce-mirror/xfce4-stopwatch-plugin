@@ -1,28 +1,35 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Allan Nordhøy <epost@anotheragency.no>, 2014
-# Harald H. <haarektrans@gmail.com>, 2014
+# Xfce Bot <transifex@xfce.org>, 2020
+# Eirik Dekko <edekko@gmail.com>, 2020
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Xfce Panel Plugins\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 21:19+0200\n"
-"PO-Revision-Date: 2017-09-19 18:06+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/xfce/xfce-panel-plugins/language/nb/)\n"
+"POT-Creation-Date: 2020-06-10 00:48+0200\n"
+"PO-Revision-Date: 2020-06-09 21:59+0000\n"
+"Last-Translator: Eirik Dekko <edekko@gmail.com>, 2020\n"
+"Language-Team: Norwegian Bokmål (https://www.transifex.com/xfce/teams/16840/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:1
+#: ../panel-plugin/stopwatch.c:223
+msgid "Reset"
+msgstr "Tilbakestill"
+
+#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.h:1
 msgid "Stopwatch"
 msgstr "Stoppeklokke"
 
-#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:2
+#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.h:2
 msgid "Time yourself"
 msgstr "Ta tiden på deg selv"
