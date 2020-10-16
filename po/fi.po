@@ -1,27 +1,35 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Ammuu5, 2018
+# Xfce Bot <transifex@xfce.org>, 2020
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Xfce Panel Plugins\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 21:19+0200\n"
-"PO-Revision-Date: 2018-07-16 14:49+0000\n"
-"Last-Translator: Ammuu5\n"
-"Language-Team: Finnish (http://www.transifex.com/xfce/xfce-panel-plugins/language/fi/)\n"
+"POT-Creation-Date: 2020-06-10 00:48+0200\n"
+"PO-Revision-Date: 2020-06-09 21:59+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2020\n"
+"Language-Team: Finnish (https://www.transifex.com/xfce/teams/16840/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:1
+#: ../panel-plugin/stopwatch.c:223
+msgid "Reset"
+msgstr "Nollaa"
+
+#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.h:1
 msgid "Stopwatch"
 msgstr "Sekuntikello"
 
-#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:2
+#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.h:2
 msgid "Time yourself"
 msgstr "Ajoita itse"
