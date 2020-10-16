@@ -1,29 +1,35 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# GenghisKhan <genghiskhan@gmx.ca>, 2015
-# Hebrew speakers the world over, 2012
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2013
+# Xfce Bot <transifex@xfce.org>, 2020
+# Elishai Eliyahu <elishai@mailfence.com>, 2020
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Xfce Panel Plugins\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 21:19+0200\n"
-"PO-Revision-Date: 2017-09-23 19:03+0000\n"
-"Last-Translator: GenghisKhan <genghiskhan@gmx.ca>\n"
-"Language-Team: Hebrew (http://www.transifex.com/xfce/xfce-panel-plugins/language/he/)\n"
+"POT-Creation-Date: 2020-06-10 00:48+0200\n"
+"PO-Revision-Date: 2020-06-09 21:59+0000\n"
+"Last-Translator: Elishai Eliyahu <elishai@mailfence.com>, 2020\n"
+"Language-Team: Hebrew (https://www.transifex.com/xfce/teams/16840/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
-#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:1
+#: ../panel-plugin/stopwatch.c:223
+msgid "Reset"
+msgstr "אתחול"
+
+#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.h:1
 msgid "Stopwatch"
 msgstr "שעון עצר"
 
-#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.in.h:2
+#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.h:2
 msgid "Time yourself"
 msgstr "תזמן את עצמך"
