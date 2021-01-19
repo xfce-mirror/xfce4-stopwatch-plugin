@@ -39,7 +39,7 @@ stopwatch_save (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 	filename = xfce_panel_plugin_save_location (plugin, TRUE);
 
 	if (G_UNLIKELY (filename == NULL)) {
-		DBG ("Failed to open config file %s", filename);
+		DBG ("Failed to get config file location");
 		return;
 	}
 
@@ -69,7 +69,7 @@ stopwatch_load (StopwatchPlugin *stopwatch)
 	filename = xfce_panel_plugin_save_location (stopwatch->plugin, TRUE);
 
 	if (G_UNLIKELY (filename == NULL)) {
-		DBG ("Failed to open config file %s", filename);
+		DBG ("Failed to get config file location");
 		return;
 	}
 
