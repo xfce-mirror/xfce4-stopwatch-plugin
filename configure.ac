@@ -13,17 +13,12 @@ dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
 dnl 2006, 2008, 2009 Mike Massonnet <mmassonnet@gmail.com>
 
 dnl version info
-m4_define([stopwatch_version_major], [0])
-m4_define([stopwatch_version_minor], [4])
-m4_define([stopwatch_version_micro], [0])
-m4_define([stopwatch_version_build], [@REVISION@])
-m4_define([stopwatch_version_tag], [git])
-m4_define([stopwatch_version], [stopwatch_version_major().stopwatch_version_minor().stopwatch_version_micro()ifelse(stopwatch_version_tag(), [git], [stopwatch_version_tag()-stopwatch_version_build()], [stopwatch_version_tag()])])
+XDT_VERSION_INIT([0.4.0],[git])
 
 dnl initialize autoconf
 AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>])
 AC_COPYRIGHT([Copyright (c) 2020 Natanael Copa <ncopa@alpinelinux.org])
-AC_INIT([xfce4-stopwatch-plugin], [stopwatch_version], [ncopa@alpinelinux.org])
+AC_INIT([xfce4-stopwatch-plugin], [xdt_version], [ncopa@alpinelinux.org])
 AC_PREREQ([2.50])
 AC_CONFIG_MACRO_DIRS([m4])
 
@@ -51,10 +46,10 @@ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.13.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.13.0])
 
 dnl check for i18n support
-XDT_I18N([@LINGUAS@])
+XDT_I18N()
 
 dnl Check for debugging support
-XDT_FEATURE_DEBUG()
+XDT_FEATURE_DEBUG([xdt_debug_default])
 
 AC_OUTPUT([
 Makefile
