@@ -13,7 +13,7 @@ dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
 dnl 2006, 2008, 2009 Mike Massonnet <mmassonnet@gmail.com>
 
 dnl version info
-XDT_VERSION_INIT([0.4.0],[git])
+XDT_VERSION_INIT([0.5.0])
 
 dnl initialize autoconf
 AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>])

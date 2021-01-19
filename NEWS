@@ -1,3 +1,19 @@
+0.5.0
+======
+- Fix debug output when failing to get config file name
+- Rename configiure.ac.in -> confiugre.ac
+- Fix make distcheck and typos
+- Fix build with panel 4.15+
+- Translation Updates:
+  Amharic, Arabic, Asturian, Basque, Belarusian, Bulgarian, Catalan,
+  Chinese (China), Chinese (Taiwan), Croatian, Czech, Danish, Dutch,
+  English (Australia), English (Canada), English (United Kingdom),
+  Finnish, French, Galician, German, Greek, Hebrew, Hungarian, Icelandic,
+  Indonesian, Italian, Japanese, Kazakh, Korean, Lithuanian, Malay,
+  Norwegian Bokmål, Occitan (post 1500), Polish, Portuguese, Portuguese
+  (Brazil), Russian, Serbian, Slovak, Slovenian, Spanish, Swedish,
+  Turkish, Ukrainian, Uyghur,
+
 0.4.0
 =====
 
