@@ -25,7 +25,7 @@ AC_CONFIG_MACRO_DIRS([m4])
 dnl AC_CANONICAL_TARGET()
 
 dnl initialize automake
-AM_INIT_AUTOMAKE([1.11 dist-bzip2 foreign])
+AM_INIT_AUTOMAKE([dist-xz foreign])
 AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE()
 AM_SILENT_RULES([yes])
