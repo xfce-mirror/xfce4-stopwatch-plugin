@@ -46,7 +46,7 @@ panel-plugin/vala.stamp
 panel-plugin/xfce4-stopwatch-plugin
 panel-plugin/xfce4-stopwatch-plugin.desktop
 panel-plugin/xfce4_stopwatch_plugin-stopwatch.o
-po/.intltool-merge-cache
+po/.intltool-merge-cache*
 po/Makefile
 po/Makefile.in
 po/Makefile.in.in
