@@ -26,7 +26,7 @@ dnl AC_CANONICAL_TARGET()
 
 dnl initialize automake
 AM_INIT_AUTOMAKE([dist-xz foreign])
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE()
 AM_SILENT_RULES([yes])
 
