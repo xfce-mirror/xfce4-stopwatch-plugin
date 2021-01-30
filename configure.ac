@@ -26,7 +26,7 @@ dnl AC_CANONICAL_TARGET()
 
 dnl initialize automake
 AM_INIT_AUTOMAKE([dist-xz foreign])
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE()
 AM_SILENT_RULES([yes])
 
@@ -51,7 +51,7 @@ XDT_I18N()
 dnl Check for debugging support
 XDT_FEATURE_DEBUG([xdt_debug_default])
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 icons/Makefile
 icons/16x16/Makefile
@@ -62,6 +62,7 @@ icons/scalable/Makefile
 panel-plugin/Makefile
 po/Makefile.in
 ])
+AC_OUTPUT
 
 dnl print configuration
 echo
