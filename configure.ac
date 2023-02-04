@@ -41,7 +41,8 @@ LT_PREREQ([2.4])
 LT_INIT([disable-static])
 
 dnl check for required packages
-XDT_CHECK_PACKAGE([GTK], [gtk+-3.0])
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.50.0])
+XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [3.22.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.13.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.13.0])
 
