@@ -32,7 +32,7 @@ AM_SILENT_RULES([yes])
 
 dnl check for basic programs
 AC_PROG_CC_C_O()
-AC_PROG_LD()
+LT_PATH_LD([])
 AC_PROG_INSTALL()
 IT_PROG_INTLTOOL([0.35.0])
 
