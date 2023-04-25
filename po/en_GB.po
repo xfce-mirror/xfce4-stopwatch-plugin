@@ -5,16 +5,17 @@
 # 
 # Translators:
 # Xfce Bot <transifex@xfce.org>, 2020
+# Andi Chandler <andi@gowling.com>, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-10 00:48+0200\n"
+"POT-Creation-Date: 2022-11-28 15:08+0100\n"
 "PO-Revision-Date: 2020-06-09 21:59+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>, 2020\n"
-"Language-Team: English (United Kingdom) (https://www.transifex.com/xfce/teams/16840/en_GB/)\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>, 2023\n"
+"Language-Team: English (United Kingdom) (https://app.transifex.com/xfce/teams/16840/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +24,7 @@ msgstr ""
 
 #: ../panel-plugin/stopwatch.c:223
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.h:1
 msgid "Stopwatch"
