@@ -19,8 +19,9 @@ dnl initialize autoconf
 AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>])
 AC_COPYRIGHT([Copyright (c) 2020 Natanael Copa <ncopa@alpinelinux.org])
 AC_INIT([xfce4-stopwatch-plugin], [xdt_version], [ncopa@alpinelinux.org])
-AC_PREREQ([2.50])
+AC_PREREQ([2.69])
 AC_CONFIG_MACRO_DIRS([m4])
+AC_REVISION([xdt_version_build])
 
 dnl AC_CANONICAL_TARGET()
 
@@ -34,7 +35,6 @@ dnl check for basic programs
 AC_PROG_CC_C_O()
 LT_PATH_LD([])
 AC_PROG_INSTALL()
-IT_PROG_INTLTOOL([0.35.0])
 
 dnl libtool
 LT_PREREQ([2.4])
@@ -47,7 +47,11 @@ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.13.0])
 XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-2.0], [4.13.0])
 
 dnl check for i18n support
-XDT_I18N()
+GETTEXT_PACKAGE="$PACKAGE"
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+AC_SUBST([GETTEXT_PACKAGE])
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
 dnl Check for debugging support
 XDT_FEATURE_DEBUG([xdt_debug_default])
@@ -72,4 +76,3 @@ echo
 echo "* Maintainer Mode:        $USE_MAINTAINER_MODE"
 echo "* Debug Support:          $enable_debug"
 echo
-

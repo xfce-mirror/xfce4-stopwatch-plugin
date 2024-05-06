@@ -35,7 +35,8 @@ desktop_in_files =							\
 desktopdir = $(datadir)/xfce4/panel/plugins
 desktop_DATA = xfce4-stopwatch-plugin.desktop
 
-@INTLTOOL_DESKTOP_RULE@
+%.desktop: %.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 #
 # Extra
