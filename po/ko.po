@@ -4,7 +4,6 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Xfce Bot <transifex@xfce.org>, 2020
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2020
 # 
 #, fuzzy
@@ -12,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-10 00:48+0200\n"
+"POT-Creation-Date: 2024-05-07 01:02+0200\n"
 "PO-Revision-Date: 2020-06-09 21:59+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2020\n"
-"Language-Team: Korean (https://www.transifex.com/xfce/teams/16840/ko/)\n"
+"Language-Team: Korean (https://app.transifex.com/xfce/teams/16840/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,11 +24,3 @@ msgstr ""
 #: ../panel-plugin/stopwatch.c:223
 msgid "Reset"
 msgstr "초기화"
-
-#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.h:1
-msgid "Stopwatch"
-msgstr "스톱워치"
-
-#: ../panel-plugin/xfce4-stopwatch-plugin.desktop.in.h:2
-msgid "Time yourself"
-msgstr "스스로 시간을 잽니다"
