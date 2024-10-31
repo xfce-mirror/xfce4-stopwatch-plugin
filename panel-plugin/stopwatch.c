@@ -141,7 +141,7 @@ stopwatch_new (XfcePanelPlugin *plugin)
 	orientation = (mode != XFCE_PANEL_PLUGIN_MODE_VERTICAL) ? GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL;
 
 	stopwatch->box = gtk_box_new (orientation, 2);
-	gtk_box_set_homogeneous (GTK_BOX(stopwatch->box), FALSE);
+	gtk_box_set_homogeneous (GTK_BOX (stopwatch->box), FALSE);
 	gtk_widget_show (stopwatch->box);
 	gtk_container_add (GTK_CONTAINER (stopwatch->ebox), stopwatch->box);
 
