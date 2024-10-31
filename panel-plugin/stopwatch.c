@@ -147,7 +147,7 @@ stopwatch_new (XfcePanelPlugin *plugin)
 
 	GtkWidget *spacer_start = gtk_label_new (NULL);
 	gtk_widget_show (spacer_start);
-	gtk_box_pack_start (GTK_BOX(stopwatch->box), spacer_start, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (stopwatch->box), spacer_start, TRUE, TRUE, 0);
 
 	stopwatch->label = gtk_label_new (NULL);
 	gtk_label_set_selectable (GTK_LABEL (stopwatch->label), FALSE);
