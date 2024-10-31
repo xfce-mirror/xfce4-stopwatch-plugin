@@ -167,7 +167,7 @@ stopwatch_new (XfcePanelPlugin *plugin)
 
 	GtkWidget *spacer_end = gtk_label_new (NULL);
 	gtk_widget_show (spacer_end);
-	gtk_box_pack_start (GTK_BOX(stopwatch->box), spacer_end, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (stopwatch->box), spacer_end, TRUE, TRUE, 0);
 
 	stopwatch_load (stopwatch);
 	update_start_stop_image (GTK_TOGGLE_BUTTON (stopwatch->button));
