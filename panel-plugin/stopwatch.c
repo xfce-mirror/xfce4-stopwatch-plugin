@@ -125,6 +125,7 @@ static StopwatchPlugin *
 stopwatch_new (XfcePanelPlugin *plugin)
 {
 	StopwatchPlugin *stopwatch;
+	XfcePanelPluginMode mode;
 	GtkOrientation orientation;
 
 	stopwatch = g_slice_new0(StopwatchPlugin);
@@ -136,15 +137,22 @@ stopwatch_new (XfcePanelPlugin *plugin)
 	stopwatch->ebox = gtk_event_box_new ();
 	gtk_widget_show (stopwatch->ebox);
 
-	orientation = xfce_panel_plugin_get_orientation (plugin);
+	mode = xfce_panel_plugin_get_mode (plugin);
+	orientation = (mode != XFCE_PANEL_PLUGIN_MODE_VERTICAL) ? GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL;
 
 	stopwatch->box = gtk_box_new (orientation, 2);
+	gtk_box_set_homogeneous (GTK_BOX (stopwatch->box), FALSE);
 	gtk_widget_show (stopwatch->box);
 	gtk_container_add (GTK_CONTAINER (stopwatch->ebox), stopwatch->box);
+
+	GtkWidget *spacer_start = gtk_label_new (NULL);
+	gtk_widget_show (spacer_start);
+	gtk_box_pack_start (GTK_BOX (stopwatch->box), spacer_start, TRUE, TRUE, 0);
 
 	stopwatch->label = gtk_label_new (NULL);
 	gtk_label_set_selectable (GTK_LABEL (stopwatch->label), FALSE);
 	gtk_label_set_angle (GTK_LABEL (stopwatch->label), orientation == GTK_ORIENTATION_HORIZONTAL ? 0 : 270);
+	gtk_widget_set_halign (stopwatch->label, GTK_ALIGN_CENTER);
 	gtk_widget_show (stopwatch->label);
 	gtk_box_pack_start (GTK_BOX (stopwatch->box), stopwatch->label, FALSE, FALSE, 0);
 
@@ -153,8 +161,13 @@ stopwatch_new (XfcePanelPlugin *plugin)
 	gtk_widget_set_can_focus (stopwatch->button, FALSE);
 	gtk_widget_set_focus_on_click (stopwatch->button, FALSE);
 	gtk_button_set_relief (GTK_BUTTON (stopwatch->button), FALSE);
+	gtk_widget_set_halign (stopwatch->button, GTK_ALIGN_CENTER);
 	gtk_widget_show (stopwatch->button);
 	gtk_box_pack_start (GTK_BOX (stopwatch->box), stopwatch->button, FALSE, FALSE, 0);
+
+	GtkWidget *spacer_end = gtk_label_new (NULL);
+	gtk_widget_show (spacer_end);
+	gtk_box_pack_start (GTK_BOX (stopwatch->box), spacer_end, TRUE, TRUE, 0);
 
 	stopwatch_load (stopwatch);
 	update_start_stop_image (GTK_TOGGLE_BUTTON (stopwatch->button));
@@ -176,10 +189,12 @@ stopwatch_free (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 }
 
 static void
-stopwatch_orientation_changed (XfcePanelPlugin *plugin,
-			       GtkOrientation orientation,
+stopwatch_mode_changed (XfcePanelPlugin *plugin,
+			       XfcePanelPluginMode mode,
 			       StopwatchPlugin *stopwatch)
 {
+	GtkOrientation orientation = (mode != XFCE_PANEL_PLUGIN_MODE_VERTICAL) ? GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL;
+
 	gtk_orientable_set_orientation (GTK_ORIENTABLE (stopwatch->box), orientation);
 	gtk_label_set_angle (GTK_LABEL (stopwatch->label), orientation == GTK_ORIENTATION_HORIZONTAL ? 0 : 270);
 }
@@ -227,7 +242,7 @@ stopwatch_construct (XfcePanelPlugin *plugin)
 	xfce_panel_plugin_menu_insert_item (plugin, GTK_MENU_ITEM (stopwatch->menuitem_reset));
 
 	g_signal_connect (G_OBJECT (plugin), "free-data", G_CALLBACK (stopwatch_free), stopwatch);
-	g_signal_connect (G_OBJECT (plugin), "orientation-changed", G_CALLBACK (stopwatch_orientation_changed), stopwatch);
+	g_signal_connect (G_OBJECT (plugin), "mode-changed", G_CALLBACK (stopwatch_mode_changed), stopwatch);
 	g_signal_connect (G_OBJECT (plugin), "size-changed", G_CALLBACK (stopwatch_size_changed), stopwatch);
 	g_signal_connect (G_OBJECT (plugin), "save", G_CALLBACK (stopwatch_save), stopwatch);
 
