@@ -16,8 +16,9 @@ dnl version info
 XDT_VERSION_INIT([0.5.0], [git])
 
 dnl initialize autoconf
-AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>])
-AC_COPYRIGHT([Copyright (c) 2020 Natanael Copa <ncopa@alpinelinux.org])
+AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>
+  Copyright (c) 2020 Natanael Copa <ncopa@alpinelinux.org
+  Copyright (c) 2021-2024 The Xfce development team. All rights reserved.])
 AC_INIT([xfce4-stopwatch-plugin], [xdt_version], [ncopa@alpinelinux.org])
 AC_PREREQ([2.69])
 AC_CONFIG_MACRO_DIRS([m4])
