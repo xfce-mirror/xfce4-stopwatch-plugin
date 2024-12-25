@@ -1,3 +1,8 @@
+0.5.2 (2024-12-25)
+=====
+- build: Fix automake options
+
+
 0.5.1 (2024-12-25)
 =====
 - Update copyright year
