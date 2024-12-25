@@ -27,7 +27,7 @@ AC_REVISION([xdt_version_build])
 dnl AC_CANONICAL_TARGET()
 
 dnl initialize automake
-AM_INIT_AUTOMAKE([dist-xz foreign])
+AM_INIT_AUTOMAKE([1.8 dist-bzip2 tar-ustar no-dist-gzip foreign])
 AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE()
 AM_SILENT_RULES([yes])
