@@ -225,6 +225,26 @@ stopwatch_reset (GtkWidget *item, StopwatchPlugin *stopwatch)
 }
 
 static void
+stopwatch_show_about (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
+{
+	const gchar *auth[] = {
+		"Diego Ongaro <ongardie@gmail.com>",
+		"Natanael Copa <ncopa@alpinelinux.org>",
+		NULL
+	};
+
+	gtk_show_about_dialog (NULL,
+		"logo-icon-name", "xfce4-stopwatch-plugin",
+		"license", xfce_get_license_text (XFCE_LICENSE_TEXT_BSD),
+		"version", PACKAGE_VERSION,
+		"program-name", PACKAGE_NAME,
+		"comments", _("Time yourself"),
+		"website", PACKAGE_URL,
+		"copyright", "Copyright \302\251 2021-2025 The Xfce development team",
+		"authors", auth, NULL);
+}
+
+static void
 stopwatch_construct (XfcePanelPlugin *plugin)
 {
 	StopwatchPlugin *stopwatch;
@@ -240,10 +260,12 @@ stopwatch_construct (XfcePanelPlugin *plugin)
 	gtk_widget_show_all (stopwatch->menuitem_reset);
 	g_signal_connect (G_OBJECT (stopwatch->menuitem_reset), "activate", G_CALLBACK (stopwatch_reset), stopwatch);
 	xfce_panel_plugin_menu_insert_item (plugin, GTK_MENU_ITEM (stopwatch->menuitem_reset));
+	xfce_panel_plugin_menu_show_about (plugin);
 
 	g_signal_connect (G_OBJECT (plugin), "free-data", G_CALLBACK (stopwatch_free), stopwatch);
 	g_signal_connect (G_OBJECT (plugin), "mode-changed", G_CALLBACK (stopwatch_mode_changed), stopwatch);
 	g_signal_connect (G_OBJECT (plugin), "size-changed", G_CALLBACK (stopwatch_size_changed), stopwatch);
 	g_signal_connect (G_OBJECT (plugin), "save", G_CALLBACK (stopwatch_save), stopwatch);
+	g_signal_connect (G_OBJECT (plugin), "about", G_CALLBACK (stopwatch_show_about), stopwatch);
 
 }
