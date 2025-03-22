@@ -243,7 +243,7 @@ stopwatch_show_about (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 		"program-name", PACKAGE_NAME,
 		"comments", _("Time yourself"),
 		"website", PACKAGE_URL,
-		"copyright", "Copyright \302\251 2021-2025 The Xfce development team",
+		"copyright", "Copyright \302\251 2021-" COPYRIGHT_YEAR " The Xfce development team",
 		"authors", auth, NULL);
 }
 

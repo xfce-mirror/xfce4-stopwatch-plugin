@@ -13,17 +13,21 @@ dnl 2003 Jakob Henriksson <b0kaj+dev@lysator.liu.se>
 dnl 2006, 2008, 2009 Mike Massonnet <mmassonnet@gmail.com>
 
 dnl version info
+m4_define([copyright_year], [2025])
 XDT_VERSION_INIT([0.5.2], [git])
 
 dnl initialize autoconf
 AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>
   Copyright (c) 2020 Natanael Copa <ncopa@alpinelinux.org
-  Copyright (c) 2021-2024 The Xfce development team. All rights reserved.])
+  Copyright (c) 2021-copyright_year() The Xfce development team. All rights reserved.])
 AC_INIT([xfce4-stopwatch-plugin], [xdt_version], [ncopa@alpinelinux.org])
 AC_PREREQ([2.69])
 AC_CONFIG_MACRO_DIRS([m4])
 AC_REVISION([xdt_version_build])
 AC_DEFINE([VERSION_FULL], [PACKAGE_VERSION], [Alias for VERSION and PACKAGE_VERSION for meson compatibility])
+COPYRIGHT_YEAR=copyright_year()
+AC_DEFINE_UNQUOTED([COPYRIGHT_YEAR], ["$COPYRIGHT_YEAR"], [Copyright year])
+AC_SUBST([COPYRIGHT_YEAR])
 
 dnl AC_CANONICAL_TARGET()
 
