@@ -49,7 +49,9 @@ desktop_DATA = xfce4-stopwatch-plugin.desktop
 #
 
 EXTRA_DIST =								\
-	$(desktop_in_files)
+	$(desktop_in_files)						\
+	meson.build							\
+	$(NULL)
 
 DISTCLEANFILES =							\
 	$(desktop_DATA)
