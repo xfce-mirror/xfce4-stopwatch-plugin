@@ -21,6 +21,12 @@ libstopwatch_la_CFLAGS =						\
 	@LIBXFCE4PANEL_CFLAGS@						\
 	@LIBXFCE4UTIL_CFLAGS@
 
+libstopwatch_la_LDFLAGS =						\
+	-avoid-version							\
+	-module								\
+	-no-undefined							\
+	-export-symbols-regex '^xfce_panel_module_(preinit|init|construct)'
+
 libstopwatch_la_LIBADD =						\
 	@LIBXFCE4PANEL_LIBS@						\
 	@LIBXFCE4UTIL_LIBS@
