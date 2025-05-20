@@ -39,17 +39,17 @@ For detailed information on the minimum required versions, check [[https://gitla
 From source code repository: 
 
     % cd xfce4-stopwatch-plugin
-    % ./autogen.sh
-    % make
-    % make install
+    % meson setup build
+    % meson compile -C build
+    % meson install -C build
 
 From release tarball:
 
-    % tar xf xfce4-stopwatch-plugin-<version>.tar.bz2
+    % tar xf xfce4-stopwatch-plugin-<version>.tar.xz
     % cd xfce4-stopwatch-plugin-<version>
-    % ./configure
-    % make
-    % make install
+    % meson setup build
+    % meson compile -C build
+    % meson install -C build
 
 ### Reporting Bugs
 
