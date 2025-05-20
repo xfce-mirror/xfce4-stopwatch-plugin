@@ -14,7 +14,7 @@ dnl 2006, 2008, 2009 Mike Massonnet <mmassonnet@gmail.com>
 
 dnl version info
 m4_define([copyright_year], [2025])
-XDT_VERSION_INIT([0.6.0])
+XDT_VERSION_INIT([0.6.0], [git])
 
 dnl initialize autoconf
 AC_COPYRIGHT([Copyright (c) 2009 Diego Ongaro <ongardie@gmail.com>
