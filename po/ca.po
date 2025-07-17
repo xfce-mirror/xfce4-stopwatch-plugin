@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Xfce
-# This file is distributed under the same license as the xfce-panel-plugins.xfce4-stopwatch-plugin package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: xfce-panel-plugins.xfce4-stopwatch-plugin\n"
-"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-05-07 13:03+0200\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-17 00:54+0200\n"
 "PO-Revision-Date: 2020-06-09 21:59+0000\n"
 "Last-Translator: Davidmp <medipas@gmail.com>, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/xfce/teams/16840/ca/)\n"
@@ -21,14 +21,10 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: panel-plugin/stopwatch.c:223
-msgid "Reset"
-msgstr "Restableix"
-
-#: panel-plugin/xfce4-stopwatch-plugin.desktop.in:4
-msgid "Stopwatch"
-msgstr "Cronòmetre"
-
-#: panel-plugin/xfce4-stopwatch-plugin.desktop.in:5
+#: ../panel-plugin/stopwatch.c:241
 msgid "Time yourself"
 msgstr "Cronometreu-vos"
+
+#: ../panel-plugin/stopwatch.c:258
+msgid "Reset"
+msgstr "Restableix"
