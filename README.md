@@ -32,7 +32,7 @@ See [NEWS](https://gitlab.xfce.org/panel-plugins/xfce4-stopwatch-plugin/-/blob/m
 * [libxfce4util](https://gitlab.xfce.org/xfce/libxfce4util)
 * [xfce4-panel](https://gitlab.xfce.org/xfce/xfce4-panel)
 
-For detailed information on the minimum required versions, check [[https://gitlab.xfce.org/panel-plugins/xfce4-stopwatch-plugin/-/blob/master/configure.ac.in|configure.ac.in]]
+For detailed information on the minimum required versions, check [meson.build](https://gitlab.xfce.org/panel-plugins/xfce4-stopwatch-plugin/-/blob/master/meson.build)
 
 ### Installation
 
