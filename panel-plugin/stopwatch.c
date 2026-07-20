@@ -51,9 +51,9 @@ stopwatch_save (XfcePanelPlugin *plugin, StopwatchPlugin *stopwatch)
 	}
 
 	stopwatch_timer_get_state (stopwatch->timer, &start, &end);
-	g_snprintf (buf, sizeof(buf), "%zu", start);
+	g_snprintf (buf, sizeof(buf), "%ld", start);
 	xfce_rc_write_entry (rc, "start_time", buf);
-	g_snprintf (buf, sizeof(buf), "%zu", end);
+	g_snprintf (buf, sizeof(buf), "%ld", end);
 	xfce_rc_write_entry (rc, "end_time", buf);
 	xfce_rc_close (rc);
 }
