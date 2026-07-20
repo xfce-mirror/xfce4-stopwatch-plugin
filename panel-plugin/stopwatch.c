@@ -116,7 +116,7 @@ stopwatch_update_display (gpointer ptr)
 	guint minutes = (elapsed / 60) % 60;
 	guint hours = (elapsed / (60 * 60));
 
-	g_snprintf (buf, sizeof(buf), "%02d:%02d:%02d", hours, minutes, seconds);
+	g_snprintf (buf, sizeof(buf), "%02u:%02u:%02u", hours, minutes, seconds);
 	gtk_label_set_text (GTK_LABEL (stopwatch->label), buf);
 	return TRUE;
 }
