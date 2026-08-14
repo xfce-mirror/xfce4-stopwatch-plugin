@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Vincenzo Reale <vinx.reale@gmail.com>, 2020
+# Vincenzo Reale <smart2128vr@gmail.com>, 2020
 # Xfce Bot <transifex@xfce.org>, 2025
 # 
 #, fuzzy
